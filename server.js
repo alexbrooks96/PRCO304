@@ -16,6 +16,7 @@ var app = express();
 mongoose.connect('mongodb://localhost/StudentHousingApp');
 
 var user = require('./controllers/user');
+var accomodation = require('./controllers/accomodation');
 
 require('./config/passport');
 
@@ -39,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(user);
+app.use(accomodation);
 
 
 

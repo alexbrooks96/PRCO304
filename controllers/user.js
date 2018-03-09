@@ -11,6 +11,8 @@ router.get('/', function(req, res){
 	res.render('index');
 });
 
+
+
 //renders signup page - Also allows message to flash if user email already exists.
 router.get('/signup', function (req, res){
 	msgError = req.flash('msgError')
