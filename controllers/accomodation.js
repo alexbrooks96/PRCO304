@@ -32,10 +32,14 @@ module.exports = function(app){
 		newProperty.save(function(err){
 			if (err) {
 				res.send(err);
+
 			}
 
 			res.json(req.body);
+			successRedirect: '/profile';
 		});
+
+
 	});
 
 router.get('/addproperty', isLoggedIn, function(req, res){
