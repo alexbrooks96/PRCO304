@@ -46,7 +46,13 @@
 				    var script = document.createElement('script');
 				    // This example uses a local copy of the GeoJSON stored at
 				    // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-				    script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+				    //script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+
+				    map.data.loadGeoJson(href = "https://api.myjson.com/bins/uug2d");
+				     map.data.setStyle({
+
+				         fillColor: 'blue'
+				     });
 				    document.getElementsByTagName('head')[0].appendChild(script);
 				  }
 
@@ -74,14 +80,19 @@
 	<div class="container text-center">
 
 	<p>You are logged in as: <%= user.firstName %><br>
-	<a href="/edit">Click here to change</a></p>
-
-
-
-	</div>
-
+	<a href="/edit">Click here to change</a></p> <a href="/addproperty" id="addProperty">Add property </a>
 
 
 	</div>
-</body>
+
+	</div>
+	</body>
+	<script>
+var role = req.body.user.role;
+
+	if (role == "admin")
+	{
+		$("#addProperty").show();
+	}
+	</script>
 </html>

@@ -46,7 +46,22 @@
                     var script = document.createElement('script');
                     // This example uses a local copy of the GeoJSON stored at
                     // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-                    script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+
+                    //script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+                    //script.src = 'https://api.myjson.com/bins/apzth.js';
+
+                    //map.data.loadGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations.json');
+                    //script.href = 'C:\Program Files\MongoDB\Server\3.6\bin\accomodations.json';
+
+                    //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations.json');
+
+                    map.data.loadGeoJson(href = "https://api.myjson.com/bins/uug2d");
+                     map.data.setStyle({
+
+                         fillColor: 'blue'
+                     });
+
+
                     document.getElementsByTagName('head')[0].appendChild(script);
                   }
 
@@ -139,17 +154,7 @@
 
     </div>
 </body>
+<script>
 
-<!-- <script>
-    function latlong(){
-        var latVal = parseFloat(document.getElementById("lat").value);
-        var longVal = parseFloat(document.getElementById("long").value);
-
-        var latLongVal = document.getElementById("latLongVal");
-
-        latLongVal = latVal.value + "," + longVal;
-        return latLongVal;
-
-    }
-</script> -->
+</script>
 </html>

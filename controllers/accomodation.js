@@ -22,21 +22,17 @@ module.exports = function(app){
 
 	router.post('/addProperty', function(req, res){
 		var newProperty = new Accomodation(req.body);
-		newProperty.addressL1 = req.body.addressL1;
-		newProperty.addressL2 = req.body.addressL2;
-		newProperty.city = req.body.city;
-		newProperty.county = req.body.county;
-		newProperty.postcode = req.body.postcode;
-		newProperty.location = [req.body.longitude, req.body.latitude];
-
+		newProperty.properties.addressL1 = req.body.addressL1;
+		newProperty.properties.addressL2 = req.body.addressL2;
+		newProperty.properties.city = req.body.city;
+		newProperty.properties.county = req.body.county;
+		newProperty.properties.postcode = req.body.postcode;
+		newProperty.geometry.coordinates = [req.body.longitude, req.body.latitude];
 		newProperty.save(function(err){
 			if (err) {
 				res.send(err);
-
-			}
-
+			}			
 			res.json(req.body);
-			successRedirect: '/profile';
 		});
 
 
