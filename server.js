@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost/StudentHousingApp');
 var user = require('./controllers/user');
 var accomodation = require('./controllers/accomodation');
 
+
 require('./config/passport');
 
 app.set('view engine', 'ejs');

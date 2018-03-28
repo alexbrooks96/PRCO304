@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <title>Student Housing Finder - Properties List</title>
+
+    <style>
+          /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+          #map {
+            height: 30em;
+            width:150em;
+          }
+          /* Optional: Makes the sample page fill the window. */
+          html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+        </style>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Student Housing Finder - Properties List</h1>
+        <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
+    </div>
+
+    <div class="container text-center">
+        <div class="row">
+        <div class="col-sm-12">
+        <ul style="list-style-type: none;">
+        <% accomodation.forEach(function (accomodations) { %>
+            <li style="border-bottom: 1px solid grey; border-top: 1px solid grey; padding:2px;"><b>Address line 1: </b><%= accomodations.properties.addressL1 %>
+            <b> Address line 2: </b>
+            <%= accomodations.properties.addressL2 %>
+            <b> City: </b>
+            <%= accomodations.properties.city %>
+            <b> County: </b>
+            <%= accomodations.properties.county %>
+            <b> Postcode: </b>
+            <%= accomodations.properties.postcode %> <a href="">More info</a></li>
+        <% }) %>
+        </ul>
+        </div>
+        </div>
+    </div>
+    <div class="container text-center">
+
+    <p>You are logged in as: <%= user.firstName %><br>
+    <a href="/edit">Click here to change</a></p>
+
+
+
+    </div>
+
+
+
+    </div>
+</body>
+<script>
+
+</script>
+</html>

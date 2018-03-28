@@ -3,8 +3,11 @@
 var express = require('express');
 var router = express.Router();
 
-var Accomodation = require('../models/accomodation');
+
+var AccomodationModel = require('../models/accomodation');
 var User = require('../models/user');
+
+
 
 module.exports = function(app){
 	router.get('/property', function(req, res){
@@ -41,6 +44,13 @@ module.exports = function(app){
 router.get('/addproperty', isLoggedIn, function(req, res){
 	res.render('addproperty', {accomodation: req.accomodation, user: req.user});
 
+});
+
+router.get('/propertylist', isLoggedIn, function(req, res){
+	AccomodationModel.find({}, function(err, data){
+		res.render('propertylist', {accomodation: data, user: req.user});
+		console.log(data);
+	});
 });
 
 module.exports = router;
