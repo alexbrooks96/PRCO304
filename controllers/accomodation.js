@@ -53,14 +53,26 @@ router.get('/propertylist', isLoggedIn, function(req, res){
 	});
 });
 
+// router.get('/viewproperty', isLoggedIn, function(req,res){
+
+// 	var propID = req.body.propID;
+// 	AccomodationModel.findOne({id: propID}, function(err, data){
+// 	console.log(propID);
+// 		res.render('viewproperty', {accomodation: data, user: req.user});
+// 		});
+// });
+
 router.get('/viewproperty', isLoggedIn, function(req,res){
 
-	var propID = req.body.propID;
-	AccomodationModel.findOne({id: propID}, function(err, data){
+	var propID = req.query.propID;
+	var addressL1 = req.query.addressL1;
+
 	console.log(propID);
+		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
 		res.render('viewproperty', {accomodation: data, user: req.user});
 		});
-	});
+});
+
 
 
 module.exports = router;

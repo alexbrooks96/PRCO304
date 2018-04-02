@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <title>Student Housing Finder - Properties List</title>
+    <title>Student Housing Finder - View Property</title>
 
     <style>
           /* Always set the map height explicitly to define the size of the div
@@ -24,14 +24,23 @@
 
 <body>
     <div class="jumbotron text-center">
-        <h1>Student Housing Finder - Properties List</h1>
+        <h1>Student Housing Finder - View Property</h1>
         <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
     </div>
 
     <div class="container text-center">
         <div class="row">
         <div class="col-sm-12">
-
+        <h3>The id of the property is <%= accomodation._id %></h3>
+        <b>Address line 1: </b><%= accomodation.properties.addressL1 %>
+                    <b> Address line 2: </b>
+                    <%= accomodation.properties.addressL2 %>
+                    <b> City: </b>
+                    <%= accomodation.properties.city %>
+                    <b> County: </b>
+                    <%= accomodation.properties.county %>
+                    <b> Postcode: </b>
+                    <%= accomodation.properties.postcode %>
         </div>
         </div>
     </div>

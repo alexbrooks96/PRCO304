@@ -4,6 +4,7 @@ var router = express.Router();
 
 var passport = require('passport');
 
+var UserModel = require('../models/user');
 var User = require('../models/user');
 
 //renders the view for index/homepage
@@ -45,6 +46,14 @@ router.get('/profile', isLoggedIn, function (req, res){
 	console.log(req.user);
 	res.render('profile', {user: req.user});
 });
+
+router.get('/userlist', isLoggedIn, function(req, res){
+	UserModel.find({}, function(err, data){
+		res.render('userlist', {users: data, user: req.user});
+		console.log(data);
+	});
+
+})
 
 //logs user out, redirects to homepage., sessions is cleared
 router.get('/logout', function (req, res){

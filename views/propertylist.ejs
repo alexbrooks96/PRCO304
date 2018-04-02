@@ -41,7 +41,7 @@
             <b> County: </b>
             <%= accomodations.properties.county %>
             <b> Postcode: </b>
-            <%= accomodations.properties.postcode %> <a href="/viewproperty">More info</a> <b>Object ID: </b><p id = "propID"> <%= accomodations._id %></p></li>
+            <%= accomodations.properties.postcode %> <a href="/viewproperty?propID=<%= accomodations._id %>">More info</a> <b>Object ID: </b><p id = "propID"> <%= accomodations._id %></p></li>
         <% }) %>
         </ul>
         </div>

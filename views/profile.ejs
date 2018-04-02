@@ -38,12 +38,13 @@
 				<div class="col-sm-2">
 					<h5>Property Information</h5>
 					<div id="info-box">Please select a property (marker) from the map.</div>
-					<button class="btn btn-primary">View more info</button>
 				</div>
 
 
 				<script>
 				  var map;
+
+				  // var contentString = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
 
 				  function initMap() {
 				    map = new google.maps.Map(document.getElementById('map'), {
@@ -54,15 +55,27 @@
 
 				    map.data.loadGeoJson(href = 'https://api.myjson.com/bins/uug2d');
 
-
+				    //var marker = new googl
 
 				    map.data.setStyle({
-				      title: 'Hi Tom',
+				      title: "hi",
 				      clickable: true,
+
+
 				    });
 
+				    // var infowindow = new google.maps.InfoWindow({
+				    // 	content: contentString
+				    // });
+
+				    // map.data.addListener('click', function(event){
+				    // 	infowindow.open(map, marker);
+				    // });
+
+
+
 				    map.data.addListener('click', function(event) {
-				        var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt');
+				        var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
 
 
 				        document.getElementById('info-box').innerHTML = myHTML;
@@ -70,6 +83,8 @@
 				    //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations2.js');
 
 				  }
+
+
 
 				</script>
 				<script async defer
@@ -86,6 +101,8 @@
 
 	<p>You are logged in as: <%= user.firstName %><br>
 	<a href="/edit">Click here to change</a></p> <a href="/addproperty" id="addProperty">Add property </a>
+
+	<a href="/userlist">View users</a>
 
 
 	</div>
