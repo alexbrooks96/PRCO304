@@ -1,53 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <title>Student Housing Finder - View Property</title>
+        <title>Student Housing Finder - View Property</title>
 
-    <style>
-          /* Always set the map height explicitly to define the size of the div
-           * element that contains the map. */
-          #map {
-            height: 30em;
-            width:150em;
-          }
-          /* Optional: Makes the sample page fill the window. */
-          html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-          }
+        <style>
+              /* Always set the map height explicitly to define the size of the div
+              * element that contains the map. */
+              #map {
+                height: 30em;
+                width:150em;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
         </style>
-</head>
+    </head>
 
-<body>
-    <div class="jumbotron text-center">
-        <h1>Student Housing Finder - View Property</h1>
-        <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
-    </div>
+    <body>
+        <div class="jumbotron text-center">
+            <h1>Student Housing Finder - View Property</h1>
+            <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
+        </div>
 
-    <div class="container text-center">
-        <div class="row">
-        <div class="col-sm-12">
-        <h3>The id of the property is <%= accomodation._id %></h3>
-        <b>Address line 1: </b><%= accomodation.properties.addressL1 %>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>The id of the property is <%= accomodation._id %></h3>
+                    <b>Address line 1: </b><%= accomodation.properties.addressL1 %></br>
                     <b> Address line 2: </b>
-                    <%= accomodation.properties.addressL2 %>
+                    <%= accomodation.properties.addressL2 %></br>
                     <b> City: </b>
-                    <%= accomodation.properties.city %>
+                    <%= accomodation.properties.city %></br>
                     <b> County: </b>
-                    <%= accomodation.properties.county %>
+                    <%= accomodation.properties.county %></br>
                     <b> Postcode: </b>
-                    <%= accomodation.properties.postcode %>
-        </div>
-        </div>
+                    <%= accomodation.properties.postcode %></br>
+                    <b> Longitude/Latitude:</b>
+                    <p id="coords"><%= accomodation.geometry.coordinates %></p>
+                </div>
+
+                    <div class="col-sm-6"> 
+
+                    <div id="map" class="col-sm-12"> </div>
+                    <p>The id of the property is <%= accomodation._id %></p>
+                    </div>
+                    <script>
+                      var map;
+                      function initMap() {
+                        var selectedProperty = document.getElementById('coords').innerHTML;
+                        var commaPos = selectedProperty.indexOf(',');
+                        var coordinatesLong = parseFloat(selectedProperty.substring(0, commaPos));
+                        var coordinatesLat = parseFloat(selectedProperty.substring(commaPos + 1, selectedProperty.length));
+                        //var propertyLoc = new google.maps.LatLng(coordinatesLat, coordinatesLong);
+                        var houseLoc = {lat: coordinatesLat, lng: coordinatesLong};
+
+                        //var selectedProperties = {lat: -25.363, lng: 131.044};
+
+                        map = new google.maps.Map(document.getElementById('map'), {
+                          zoom: 14,
+                          center: houseLoc,
+                          mapTypeId: 'roadmap'
+                      });
+
+                        var marker = new google.maps.Marker({
+                          position: houseLoc,
+                          map: map
+                        });
+
+
+               //  Create a <script> tag and set the USGS URL as the source.
+               //  var script = document.createElement('script');
+               //  map.data.loadGeoJson(href = "https://api.myjson.com/bins/uug2d");
+               //  map.data.setStyle({
+
+               //     fillColor: 'blue'
+               // });
+
+
+                //document.getElementsByTagName('head')[0].appendChild(script);
+            }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKt1JynmQnjE6niCiisa0zXlmWXcGRg-w&callback=initMap">
+    </script>
     </div>
+    </div>
+    <hr>
     <div class="container text-center">
 
-    <p>You are logged in as: <%= user.firstName %><br>
-    <a href="/edit">Click here to change</a></p>
+        <p>You are logged in as: <%= user.firstName %><br></p>
 
 
 
@@ -56,8 +103,8 @@
 
 
     </div>
-</body>
-<script>
+    </body>
+    <script>
 
-</script>
-</html>
+    </script>
+    </html>
