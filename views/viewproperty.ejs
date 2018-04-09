@@ -31,7 +31,7 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>The id of the property is <%= accomodation._id %></h3>
+                    <h3>Property Name: <%= accomodation.properties.addressL1 %></h3>
                     <b>Address line 1: </b><%= accomodation.properties.addressL1 %></br>
                     <b> Address line 2: </b>
                     <%= accomodation.properties.addressL2 %></br>
@@ -43,6 +43,13 @@
                     <%= accomodation.properties.postcode %></br>
                     <b> Longitude/Latitude:</b>
                     <p id="coords"><%= accomodation.geometry.coordinates %></p>
+                    <b>Description</b>
+                    <%= accomodation.properties.description %></br>
+                    <b>Number of rooms</b>
+                    <%= accomodation.properties.numRooms %></br>
+                    <b>Other Information</b></br>
+                    <b>Internet Included</b>
+                    <%= accomodation.properties.internetIncluded %>
                 </div>
 
                     <div class="col-sm-6"> 

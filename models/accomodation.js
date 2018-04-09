@@ -12,6 +12,10 @@ var accomodationSchema = mongoose.Schema({
 	county: {type: String, required: true},
 	postcode: {type: String, required: true},
 	createdAt: {type: Date, default: Date.now},
+	description: {type: String, required: true},
+	numRooms: {type: Number, required: true},
+	internetIncluded: {type: Boolean, default: false},
+
 },
 	geometry: {
 		type: {type: String, default:'Point'},
