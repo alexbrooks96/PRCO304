@@ -7,6 +7,8 @@ var passport = require('passport');
 var UserModel = require('../models/user');
 var User = require('../models/user');
 
+var AccomodationModel = require('../models/accomodation');
+
 //renders the view for index/homepage
 router.get('/', function(req, res){
 	res.render('index');
@@ -44,7 +46,10 @@ router.post('/login', passport.authenticate('local.login', {
 //renders profile page, checks to see if the user is logged in function, sends the user object to the view.
 router.get('/profile', isLoggedIn, function (req, res){
 	console.log(req.user);
-	res.render('profile', {user: req.user});
+	AccomodationModel.find({}, function(err, data){
+		res.render('profiletest', {accomodation: data, user: req.user});
+		//console.log(data);
+	});
 });
 
 router.get('/userlist', isLoggedIn, function(req, res){

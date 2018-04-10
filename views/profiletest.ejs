@@ -31,9 +31,12 @@
 	<div class="container text-center">
 		<div class="row">
 		<div class="col-sm-10">
+			<script type="text/javascript">
+
+			</script>
 
 				<!--<h3 style="font-size: 3vw;" data-toggle="tooltip" title="This is your current balance."><a href="/increase">Student Accommodation Finder</a></h3> -->
-				<div id="map" ></div>
+				<div id="map"></div>
 				</div>
 				<div class="col-sm-2">
 					<h5>Property Information</h5>
@@ -41,48 +44,61 @@
 				</div>
 
 
-				<script>
+				<script type="text/javascript">
 				  var map;
 
 				  // var contentString = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
 
 				  function initMap() {
+				  	//console.log(user);
 				    map = new google.maps.Map(document.getElementById('map'), {
 				      zoom: 14,
 				      center: new google.maps.LatLng(50.374657,-4.142385),
 				      mapTypeId: 'roadmap'
-				    });
-
-				    map.data.loadGeoJson(href = 'https://api.myjson.com/bins/uug2d');
-
-				    //var marker = new googl
-
-				    map.data.setStyle({
-				      title: "hi",
-				      clickable: true,
+					  });
+				    addMarkers(map);
+					};
 
 
-				    });
+				    function addMarkers(map){
 
-				    // var infowindow = new google.maps.InfoWindow({
-				    // 	content: contentString
-				    // });
-
-				    // map.data.addListener('click', function(event){
-				    // 	infowindow.open(map, marker);
-				    // });
+				    	var accomodations = <%-JSON.stringify(accomodation)%>
 
 
 
-				    map.data.addListener('click', function(event) {
-				        var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+				    	for (i = 0; i < accomodations.length; i++) { 
+				    	    //console.log(accomodations[i]);
+				    	    var houseLoc = {lat: accomodations[i].geometry.coordinates[0], lng: accomodations[i].geometry.coordinates[1]};
+				    	    var point = new google.maps.LatLng(houseLoc.lng, houseLoc.lat);
+
+				    	    console.log(houseLoc);
 
 
-				        document.getElementById('info-box').innerHTML = myHTML;
-				    });
+				    	    var marker = new google.maps.Marker({
+				    	    	position: point,
+				    	    	map: map
+				    	    });
+				    	}
+
+
+			    	};
+
+
+
+
+				    
+
+
+
+
+
+				    // map.data.addListener('click', function(event) {
+				    //     var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+
+
+				        // document.getElementById('info-box').innerHTML = myHTML;
+				    
 				    //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations2.js');
-
-				  }
 
 
 
@@ -109,12 +125,4 @@
 
 	</div>
 	</body>
-	<script>
-var role = req.body.user.role;
-
-	if (role == "admin")
-	{
-		$("#addProperty").show();
-	}
-	</script>
 </html>

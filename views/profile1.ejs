@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+	<title>Student Housing Finder Dashboard</title>
+
+	<style>
+	      /* Always set the map height explicitly to define the size of the div
+	       * element that contains the map. */
+	      #map {
+	        height: 30em;
+	        width:100%;
+	      }
+	      /* Optional: Makes the sample page fill the window. */
+	      html, body {
+	        height: 100%;
+	        margin: 0;
+	        padding: 0;
+	      }
+	    </style>
+</head>
+
+<body>
+	<div class="jumbotron text-center">
+		<h1>Student Housing Finder Dashboard</h1>
+		<h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
+	</div>
+
+	<div class="container text-center">
+		<div class="row">
+		<div class="col-sm-10">
+
+				<!--<h3 style="font-size: 3vw;" data-toggle="tooltip" title="This is your current balance."><a href="/increase">Student Accommodation Finder</a></h3> -->
+				<div id="map" ></div>
+				</div>
+				<div class="col-sm-2">
+					<h5>Property Information</h5>
+					<div id="info-box">Please select a property (marker) from the map.</div>
+				</div>
+
+
+					<script type="text/javascript">
+					  var map;
+
+					  // var contentString = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+
+					  function initMap() {
+					  	//console.log(user);
+					    map = new google.maps.Map(document.getElementById('map'), {
+					      zoom: 14,
+					      center: new google.maps.LatLng(50.374657,-4.142385),
+					      mapTypeId: 'roadmap'
+						  });
+					    addMarkers(map);
+						};
+
+
+					    function addMarkers(map){
+
+					    	var accomodations = <%-JSON.stringify(accomodation)%>
+
+
+
+					    	for (i = 0; i < accomodations.length; i++) { 
+					    	    //console.log(accomodations[i]);
+					    	    var houseLoc = {lat: accomodations[i].geometry.coordinates[0], lng: accomodations[i].geometry.coordinates[1]};
+					    	    var point = new google.maps.LatLng(houseLoc.lng, houseLoc.lat);
+
+					    	    console.log(houseLoc);
+
+
+					    	    var marker = new google.maps.Marker({
+					    	    	position: point,
+					    	    	map: map
+					    	    });
+					    	}
+
+
+				    	};
+
+
+
+
+					    
+
+
+
+
+
+					    // map.data.addListener('click', function(event) {
+					    //     var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+
+
+					        // document.getElementById('info-box').innerHTML = myHTML;
+					    
+					    //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations2.js');
+
+
+
+					</script>
+				<script async defer
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKt1JynmQnjE6niCiisa0zXlmWXcGRg-w&callback=initMap">
+				</script>
+
+
+		</div>
+	</div>
+
+	<div id="info-box"></div>
+
+	<div class="container text-center">
+
+	<p>You are logged in as: <%= user.firstName %><br>
+	<a href="/edit">Click here to change</a></p> </br><b>Admin menu - </b><a href="/addproperty" id="addProperty">Add property </a> | 
+
+	<a href="/userlist">View users</a> | <a href="/propertylist">View Properties</a>
+
+
+	</div>
+
+	</div>
+	</body>
+	<script>
+var role = req.body.user.role;
+
+	if (role == "admin")
+	{
+		$("#addProperty").show();
+	}
+	</script>
+</html>

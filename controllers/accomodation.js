@@ -119,6 +119,12 @@ router.post('/editproperty', function (req, res, next){
 	});
 });
 
+router.get('/profiletest', isLoggedIn, function(req, res){
+	AccomodationModel.find({}, function(err, data){
+		res.render('profiletest', {accomodation: data, user: req.user});
+		//console.log(data);
+	});
+});
 
 
 
