@@ -47,7 +47,7 @@ router.post('/login', passport.authenticate('local.login', {
 router.get('/profile', isLoggedIn, function (req, res){
 	console.log(req.user);
 	AccomodationModel.find({}, function(err, data){
-		res.render('profiletest', {accomodation: data, user: req.user});
+		res.render('profile', {accomodation: data, user: req.user});
 		//console.log(data);
 	});
 });
