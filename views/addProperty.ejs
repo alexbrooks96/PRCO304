@@ -80,7 +80,17 @@
                                     })(marker,content,infowindow)); 
 
 
+
+
                             }
+
+                            google.maps.event.addListener(map, 'click', function( event ){
+                                var userLat = event.latLng.lat();
+                                var userLong = event.latLng.lng();
+
+                                document.getElementById('latitude').value = userLat;
+                                document.getElementById('longitude').value = userLong;
+                            });
 
 
                         };
@@ -145,13 +155,13 @@
 
                         <div class="row form-group input_group">
                             <div class="col-sm-6">
-                                <input type="text" name="latitude" id="latitude" class="form-control" placeholder="50.3790" value="50.3790">
+                                <input type="text" name="latitude" id="latitude" class="form-control" placeholder="latitude" >
                             </div>
                         </div>
 
                         <div class="row form-group input_group">
                             <div class="col-sm-6">
-                                <input type="text" name="longitude" id="longitude" class="form-control" placeholder="4.1333" value="4.1333">
+                                <input type="text" name="longitude" id="longitude" class="form-control" placeholder="longitude" >
                             </div>
                         </div>
 
@@ -181,6 +191,8 @@
                             </div>
                         </div>
                     </form>
+<p id="latitude"></p>
+<p id="longitude"></p>
 
                 </div>
 
