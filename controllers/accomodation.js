@@ -9,6 +9,7 @@ var User = require('../models/user');
 
 
 
+
 module.exports = function(app){
 	router.get('/property', function(req, res){
 
@@ -39,10 +40,11 @@ router.post('/addProperty', function(req, res){
 			res.send(err);
 		}			
 		res.json(req.body);
+
 	});
-
-
 });
+
+
 
 router.get('/addproperty', isLoggedIn, function(req, res){
 	res.render('addproperty', {accomodation: req.accomodation, user: req.user});
@@ -87,6 +89,39 @@ router.get('/editproperty', isLoggedIn, function(req,res){
 		});
 });
 
+router.post('/addToFavourites', function (req, res){
+	var propertyIDEntry = String(req.body.propertyID);
+	var propertyAddrL1Entry = String(req.body.propertyAddrL1);
+	var userID = req.user._id;
+
+	console.log(req);
+
+	var favouritesEntry = {
+		propertyID : propertyIDEntry,
+		propertyAddrL1 : propertyAddrL1Entry,
+	}
+
+	User.updateOne(
+		{
+			"_id": userID
+		}, 
+		{
+
+			$push: {'favourites': favouritesEntry},
+
+		},
+		function(err, result){
+		console.log('Added to favourites');
+		console.log(favouritesEntry);
+
+		res.redirect('/profile');
+
+		if(err) {
+			console.error(err);
+		}
+	});
+});
+
 router.post('/editproperty', function (req, res, next){
 	var propID = req.query.propID;
 
@@ -125,6 +160,15 @@ router.get('/profiletest', isLoggedIn, function(req, res){
 		//console.log(data);
 	});
 });
+
+router.get('/favourites', isLoggedIn, function(req, res){
+	var userID = req.user.id;
+
+	User.findOne({_id: userID}, function(err, data){
+		res.render('favourites', {users: data, user: req.user});
+	});
+});
+
 
 
 

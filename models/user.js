@@ -10,6 +10,13 @@ var userSchema = mongoose.Schema({
 	password: {type:String},
 	studentNumber: {type:String},
 	role: {type: String},
+	favourites: [
+		{
+			propertyID: String,
+			propertyAddrL1: String,
+		}
+	],
+
 });
 
 

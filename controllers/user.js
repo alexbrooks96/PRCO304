@@ -76,6 +76,34 @@ router.get('/exisitingUser', function (req, res){
 	res.redirect('/login');
 });
 
+// router.post('/addToFavourites', function (req, res, next){
+// 	var propertyID = req.body.propertyID;
+// 	var propertyAddrL1 = req.body.propertyAddrL1;
+
+// 	var favourites = {
+// 		propertyID : propertyID,
+// 		propertyAddrL1 : propertyAddrL1,
+// 	}
+
+// 	UserModel.updateOne(
+// 		{
+// 			"_id": _id 
+// 		}, 
+// 		{
+
+// 			$push: {'favourites': favourites,},
+
+// 		},
+// 		function(err, result){
+// 		console.log('Added to favourites');
+// 		res.redirect('/profile');
+
+// 		if(err) {
+// 			console.error(err);
+// 		}
+// 	});
+// });
+
 
 module.exports = router;
 
