@@ -64,7 +64,6 @@
 
 
 
-
 					    	for (i = 0; i < accomodations.length; i++) { 
 					    	    //console.log(accomodations[i]);
 					    	    var houseLoc = {lat: accomodations[i].geometry.coordinates[0], lng: accomodations[i].geometry.coordinates[1]};
@@ -72,20 +71,23 @@
 
 					    	    console.log(houseLoc);
 
-					    	    var contentString = '<div id="content">' + accomodations[i].properties.addressL1 + '</br>' + accomodations[i]._id + '</br>' +  accomodations[i].properties.city + '</br>' + accomodations[i].properties.numRooms + '</br>' + '<a href="/viewproperty?propID=' + accomodations[i]._id +' "> More info </a>' +'</div>';
+					    	    var content = '<div id="content">' + accomodations[i].properties.addressL1 + '</br>' + accomodations[i]._id + '</br>' +  accomodations[i].properties.city + '</br>' + accomodations[i].properties.numRooms + '</br>' + '<a href="/viewproperty?propID=' + accomodations[i]._id +' "> More info </a>' +'</div>';
 
 					    	    var marker = new google.maps.Marker({
 					    	    	position: point,
 					    	    	map: map
 					    	    });
 
-					    	    var infowindow = new google.maps.InfoWindow({
-					    	      content: contentString
-					    	    });
+					    	    var infowindow = new google.maps.InfoWindow();
 
-					    	    marker.addListener('click', function() {
-					    	      infowindow.open(map, marker);
-					    	    });
+					    	    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+					    	            return function() {
+					    	               infowindow.setContent(content);
+					    	               infowindow.open(map,marker);
+					    	            };
+					    	        })(marker,content,infowindow)); 
+
+
 					    	}
 
 
