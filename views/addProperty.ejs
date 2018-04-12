@@ -33,51 +33,78 @@
 
                 <!--<h3 style="font-size: 3vw;" data-toggle="tooltip" title="This is your current balance."><a href="/increase">Student Accommodation Finder</a></h3> -->
                 <div id="map" class="col-sm-6"> </div>
-                <script>
-                  var map;
-                  function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 14,
-                      center: new google.maps.LatLng(50.374657,-4.142385),
-                      mapTypeId: 'roadmap'
-                    });
+                    <script type="text/javascript">
+                      var map;
 
-                    // Create a <script> tag and set the USGS URL as the source.
-                    var script = document.createElement('script');
-                    // This example uses a local copy of the GeoJSON stored at
-                    // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+                      // var contentString = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
 
-                    //script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-                    //script.src = 'https://api.myjson.com/bins/apzth.js';
-
-                    //map.data.loadGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations.json');
-                    //script.href = 'C:\Program Files\MongoDB\Server\3.6\bin\accomodations.json';
-
-                    //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations.json');
-
-                    map.data.loadGeoJson(href = "https://api.myjson.com/bins/uug2d");
-                     map.data.setStyle({
-
-                         fillColor: 'blue'
-                     });
+                      function initMap() {
+                        //console.log(user);
+                        map = new google.maps.Map(document.getElementById('map'), {
+                          zoom: 14,
+                          center: new google.maps.LatLng(50.374657,-4.142385),
+                          mapTypeId: 'roadmap'
+                          });
+                        addMarkers(map);
+                        };
 
 
-                    document.getElementsByTagName('head')[0].appendChild(script);
-                  }
+                        function addMarkers(map){
 
-                  // Loop through the results array and place a marker for each
-                  // set of coordinates.
-                  window.eqfeed_callback = function(results) {
-                    for (var i = 0; i < results.features.length; i++) {
-                      var coords = results.features[i].geometry.coordinates;
-                      var latLng = new google.maps.LatLng(coords[1],coords[0]);
-                      var marker = new google.maps.Marker({
-                        position: latLng,
-                        map: map
-                      });
-                    }
-                  }
-                </script>
+                            var accomodations = <%-JSON.stringify(accomodation)%>
+
+
+
+
+                            for (i = 0; i < accomodations.length; i++) { 
+                                //console.log(accomodations[i]);
+                                var houseLoc = {lat: accomodations[i].geometry.coordinates[0], lng: accomodations[i].geometry.coordinates[1]};
+                                var point = new google.maps.LatLng(houseLoc.lng, houseLoc.lat);
+
+                                console.log(houseLoc);
+
+                                var content = '<div id="content">' + accomodations[i].properties.addressL1 + '</br>' + accomodations[i]._id + '</br>' +  accomodations[i].properties.city + '</br>' + accomodations[i].properties.numRooms + '</br>' + '<a href="/viewproperty?propID=' + accomodations[i]._id +' "> More info </a>' +'</div>';
+
+                                var marker = new google.maps.Marker({
+                                    position: point,
+                                    map: map
+                                });
+
+                                var infowindow = new google.maps.InfoWindow();
+
+                                google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+                                        return function() {
+                                           infowindow.setContent(content);
+                                           infowindow.open(map,marker);
+                                        };
+                                    })(marker,content,infowindow)); 
+
+
+                            }
+
+
+                        };
+
+
+
+
+                        
+
+
+
+
+
+                        // map.data.addListener('click', function(event) {
+                        //     var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+
+
+                            // document.getElementById('info-box').innerHTML = myHTML;
+                        
+                        //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations2.js');
+
+
+
+                    </script>
                 <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKt1JynmQnjE6niCiisa0zXlmWXcGRg-w&callback=initMap">
                 </script>

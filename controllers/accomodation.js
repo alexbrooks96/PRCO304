@@ -47,7 +47,12 @@ router.post('/addProperty', function(req, res){
 
 
 router.get('/addproperty', isLoggedIn, function(req, res){
-	res.render('addproperty', {accomodation: req.accomodation, user: req.user});
+	// res.render('addproperty', {accomodation: req.accomodation, user: req.user});
+
+	AccomodationModel.find({}, function(err, data){
+		res.render('addproperty', {accomodation: data, user: req.user});
+		//console.log(data);
+	});
 
 });
 
