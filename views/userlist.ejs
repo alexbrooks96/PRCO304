@@ -10,7 +10,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
 
-    <title>Student Housing Finder - Properties List</title>
+    <title>UniRooms - User List</title>
 
     <style>
           /* Always set the map height explicitly to define the size of the div
@@ -29,16 +29,35 @@
 </head>
 
 <body>
-    <div class="jumbotron text-center">
-        <h1>Student Housing Finder - Users List</h1>
-        <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+          <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item ">
+                <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/addProperty">Add Property</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/propertylist">View Properties</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/userlist">View Users</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+              <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+            </span>
+          </div>
+        </nav>
 
+    <div class="container-fluid text-center">
 
-
-    <div class="container text-center">
-
-    <table id="userlist" class="table table-striped table-bordered " style="width:100%">
+    <table id="userlist" class="table table-striped table-bordered " style="width:100%; height:47em">
             <thead>
                 <tr>
                     <th>First Name</th>

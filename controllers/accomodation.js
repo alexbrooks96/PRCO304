@@ -44,7 +44,7 @@ router.post('/addProperty', function(req, res){
 
 
 	});
-	res.redirect('/profile');
+	// res.redirect('/profile');
 });
 
 

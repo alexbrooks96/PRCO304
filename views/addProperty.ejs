@@ -4,13 +4,13 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <title>Student Housing Finder - Add new property</title>
+    <title>UniRooms - Add new Property</title>
 
     <style>
           /* Always set the map height explicitly to define the size of the div
            * element that contains the map. */
           #map {
-            height: 30em;
+            height: 57em;
             width:150em;
           }
           /* Optional: Makes the sample page fill the window. */
@@ -23,12 +23,33 @@
 </head>
 
 <body>
-    <div class="jumbotron text-center">
-        <h1>Student Housing Finder - Add new Property</h1>
-        <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+      <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="/profile">Home </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/addProperty">Add Property </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/propertylist">View Properties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/userlist">View Users</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+        </span>
+      </div>
+    </nav>
 
-    <div class="container text-center">
+    <div class="container-fluid text-center">
         <div class="row">
 
                 <!--<h3 style="font-size: 3vw;" data-toggle="tooltip" title="This is your current balance."><a href="/increase">Student Accommodation Finder</a></h3> -->
@@ -199,14 +220,7 @@
 
         </div>
     </div>
-    <div class="container text-center">
 
-    <p>You are logged in as: <%= user.firstName %><br>
-    <a href="/edit">Click here to change</a> - <a href="/propertylist">View property list</a></p>
-
-
-
-    </div>
 
 
 

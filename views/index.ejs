@@ -2,17 +2,34 @@
 <html lang="en">
 <head>
 
-<title>Student Accommodation Finder</title>
+<title>UniRooms</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
 </head>
-<body>
+<style>
+.jumbotron{
 
-<div class="jumbotron text-center">
-  <h1>Student Accommodation Finder</h1>
-  <p>An application designed to make the process of finding student accommodation easier.</p> 
-</div>
+  background-image: url("/images/jumbotronbg.png");
+  background-size: cover;
+}
+</style>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+    <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav mr-auto"></ul>
+      <span class="navbar-text">
+        <a href="/login">login</a> <a href="/signup">sign up</a>
+      </span>
+    </div>
+  </nav>
+  <div class="jumbotron text-center">
+    <!--<img src="/images/jumbotronbg.png" height=auto width=auto>-->
+    <h1 style="color:#1daa76"><img src="/images/unirooms.jpg" height=210 width=700></h1>
+  </div>
 
 <div class="container">
   <div class="row">
@@ -24,7 +41,7 @@
     <div class="col-sm-4">
       <h3>Existing user?</h3>
       <p>If you are an existing user, you can sign in below.</p>
-      <p><a href="/exisitinguser"> Already got an account? Sign in></a></p>
+      <p><a href="/exisitinguser"> Already got an account? Sign in</a></p>
     </div>
     <div class="col-sm-4">
       <h3>New user?</h3>        
