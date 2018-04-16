@@ -105,26 +105,24 @@
 
 					    	    console.log(houseLoc);
 
-					    	    var content = '<div id="content">' + accomodations[i].properties.addressL1 + '</br>' + accomodations[i]._id + '</br>' +  accomodations[i].properties.city + '</br>' + accomodations[i].properties.numRooms + '</br>' + '<a href="/viewproperty?propID=' + accomodations[i]._id +' "> More info </a>' +'</div>';
+					    	    var content = '<div id="content">' + "<b> Address Line 1: </b>" + accomodations[i].properties.addressL1 + '</br>' + "<b> Property ID: </b>" + accomodations[i]._id + '</br>' + "<b> City: </b>" + accomodations[i].properties.city + '</br>' + "<b> Number of Rooms: </b>" + accomodations[i].properties.numRooms + '</br>' + '<a href="/viewproperty?propID=' + accomodations[i]._id +' "> <b> More info </b></a>' +'</div>';
 
 					    	    var marker = new google.maps.Marker({
 					    	    	position: point,
 					    	    	map: map
 					    	    });
 
-					    	    var infowindow = new google.maps.InfoWindow();
 
-					    	    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+					    	    var infowindow = new google.maps.InfoWindow();
+					    	    var prev_infowindow = false; 
+					    	    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
 					    	            return function() {
 					    	               infowindow.setContent(content);
 					    	               infowindow.open(map,marker);
 					    	            };
-					    	        })(marker,content,infowindow)); 
-
-
+					    	        })(marker,content,infowindow));
+					    	        infowindow.close(); 
 					    	}
-
-
 				    	};
 
 

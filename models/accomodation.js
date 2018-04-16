@@ -15,6 +15,14 @@ var accomodationSchema = mongoose.Schema({
 	description: {type: String, required: true},
 	numRooms: {type: Number, required: true},
 	internetIncluded: {type: Boolean, default: false},
+	tvLicenseIncluded: {type: Boolean, default: false},
+	cleanerIncluded: {type: Boolean, default: false},
+	loungeIncluded: {type: Boolean, default: false},
+	parkingIncluded: {type: Boolean, default: false},
+	bathIncluded: {type: Boolean, default: false},
+	secureLocksIncluded: {type: Boolean, default: false},
+
+
 
 },
 	geometry: {

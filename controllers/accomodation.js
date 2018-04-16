@@ -34,6 +34,13 @@ router.post('/addProperty', function(req, res){
 	newProperty.properties.description = req.body.description;
 	newProperty.properties.numRooms = req.body.numRooms;
 	newProperty.properties.internetIncluded = req.body.internetIncluded;
+	newProperty.properties.tvLicenseIncluded = req.body.tvLicenseIncluded;
+	newProperty.properties.cleanerIncluded = req.body.cleanerIncluded;
+	newProperty.properties.loungeIncluded = req.body.loungeIncluded;
+	newProperty.properties.parkingIncluded = req.body.parkingIncluded;
+	newProperty.properties.bathIncluded = req.body.bathIncluded;
+	newProperty.properties.secureLocksIncluded = req.body.secureLocksIncluded;
+
 	newProperty.geometry.coordinates = [req.body.longitude, req.body.latitude];
 	newProperty.save(function(err){
 		if (err) {

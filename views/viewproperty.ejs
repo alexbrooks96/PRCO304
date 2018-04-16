@@ -4,6 +4,8 @@
 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
+      <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
       <title>UniRooms - View Property</title>
 
       <style>
@@ -71,9 +73,60 @@
                   <%= accomodation.properties.description %></br>
                   <b>Number of rooms</b>
                   <%= accomodation.properties.numRooms %></br>
-                  <b>Other Information</b></br>
-                  <b>Internet Included</b>
-                  <%= accomodation.properties.internetIncluded %>
+                  <b>Property Features</b></br>
+                  <!-- <%= accomodation.properties.internetIncluded %> -->
+
+                  <!-- Internet included check-->
+                  <% if(accomodation.properties.internetIncluded == true) { %>
+                  <i class="fa fa-wifi fa-2x" aria-hidden="true" style="color:green" title="Internet Included"></i>
+                  <% } else { %>
+                  <i class="fa fa-wifi fa-2x" aria-hidden="true" style="color:red" title="Internet Not Included"></i>
+                  <% } %>
+
+                  <!-- TV License included check -->
+                   <% if(accomodation.properties.tvLicenseIncluded == true) { %>
+                   <i class="fa fa-desktop fa-2x" aria-hidden="true" style="color:green" title="TV License Included"></i>
+                   <% } else { %>
+                   <i class="fa fa-desktop fa-2x" aria-hidden="true" style="color:red" title="TV License Not Included"></i>
+                   <% } %>
+
+                   <!-- cleanerIncluded included check -->
+                    <% if(accomodation.properties.cleanerIncluded == true) { %>
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="true" style="color:green" title="Cleaner Included"></i>
+                    <% } else { %>
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="true" style="color:red" title="Cleaner Not Included"></i>
+                    <% } %>
+
+                    <!-- loungeIncluded included check -->
+                     <% if(accomodation.properties.loungeIncluded == true) { %>
+                     <i class="fa fa-users fa-2x" aria-hidden="true" style="color:green" title="Lounge Included"></i>
+                     <% } else { %>
+                     <i class="fa fa-users fa-2x" aria-hidden="true" style="color:red" title="Lounge Not Included"></i>
+                     <% } %>
+
+                     <!-- parkingIncluded included check -->
+                      <% if(accomodation.properties.parkingIncluded == true) { %>
+                      <i class="fa fa-car fa-2x" aria-hidden="true" style="color:green" title="Parking Included"></i>
+                      <% } else { %>
+                      <i class="fa fa-car fa-2x" aria-hidden="true" style="color:red" title="Parking Not Included"></i>
+                      <% } %>
+
+                      <!-- bathIncluded included check -->
+                       <% if(accomodation.properties.bathIncluded == true) { %>
+                       <i class="fa fa-bath fa-2x" aria-hidden="true" style="color:green" title="Bath Included"></i>
+                       <% } else { %>
+                       <i class="fa fa-bath fa-2x" aria-hidden="true" style="color:red" title="Bath Not Included"></i>
+                       <% } %>
+
+                       <!-- secureLocksIncluded included check -->
+                        <% if(accomodation.properties.secureLocksIncluded == true) { %>
+                        <i class="fa fa-lock fa-2x" aria-hidden="true" style="color:green" title="Secure Locks Included"></i>
+                        <% } else { %>
+                        <i class="fa fa-lock fa-2x" aria-hidden="true" style="color:red" title="Secure Locks Not Included"></i>
+                        <% } %>
+
+
+
                 </div>
 
                 <div class="col-sm-6">
