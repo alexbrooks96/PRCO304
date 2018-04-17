@@ -56,7 +56,7 @@ router.post('/addProperty', function(req, res){
 
 
 
-router.get('/addproperty', isLoggedIn, function(req, res){
+router.get('/addproperty', isLoggedIn, isUserAuthorised, function(req, res){
 	// res.render('addproperty', {accomodation: req.accomodation, user: req.user});
 
 	AccomodationModel.find({}, function(err, data){
@@ -195,5 +195,12 @@ function isLoggedIn(req, res, next){
 	}
 
 	res.redirect('/login');
+};
+
+function isUserAuthorised(req, res, next){
+	if (req.user.role == "admin") {
+		return next();
+	}
+	res.redirect('/profile');
 };
 

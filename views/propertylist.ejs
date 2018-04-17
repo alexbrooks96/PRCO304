@@ -79,8 +79,13 @@
                     <td><%= accomodations.properties.county %></td>
                     <td><%= accomodations.properties.postcode %></td>
                     <td><%= accomodations.properties.numRooms %></td>
-                    <td><a href="/viewproperty?propID=<%= accomodations._id %>"><i class="fa fa-search" title="View property"></i></a> <a href="/editproperty?propID=<%= accomodations._id %>"><i class="fa fa-edit" title="Edit property"></i></a><a href=""><i class="far fa-trash-alt" title="Delete User"></i></a><a href=""> <i class="fas fa-lock" title="Lock User"></i></a></td>
+                    <td><a href="/viewproperty?propID=<%= accomodations._id %>"><i class="fa fa-search" title="View property"></i></a>
+                      <% if(user.role =="admin") { %>
+                    <a href="/editproperty?propID=<%= accomodations._id %>"><i class="fa fa-edit" title="Edit property"></i></a>
+                    <a href=""><i class="far fa-trash-alt" title="Delete User"></i></a>
+                    <a href=""> <i class="fas fa-lock" title="Lock User"></i></a></td>
                     </tr>
+                    <% } %>
                     <% }) %>
                 </tbody>
 
