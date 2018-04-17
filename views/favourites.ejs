@@ -90,7 +90,14 @@
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#favouriteslist').DataTable();
+    $('#favouriteslist').DataTable({
+      dom:  "<'row'<'col-md-4'l><'col-md-4'><'col-md-4'f>>" +
+            "<'row'<'col-md-4'><'col-md-4'B><'col-md-4'>>" +
+            "<'row'<'col-sm-6'><'col-sm-6'>>" +
+            "<'row'<'col-sm-12't>><'row'<'col-sm-12'ip>>"
+      //dom: 'Bfltipr'
+    });
 } );
+
 </script>
 </html>
