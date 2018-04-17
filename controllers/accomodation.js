@@ -60,7 +60,7 @@ router.get('/addproperty', isLoggedIn, function(req, res){
 	// res.render('addproperty', {accomodation: req.accomodation, user: req.user});
 
 	AccomodationModel.find({}, function(err, data){
-		res.render('propertylist', {accomodation: data, user: req.user});
+		res.render('addProperty', {accomodation: data, user: req.user});
 		//console.log(data);
 	});
 
