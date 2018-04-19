@@ -87,6 +87,12 @@
                 <h3>Edit property</h3>
                 <form action="/editProperty" method="post">
 
+                  <div class="row form-group input_group">
+                      <div class="col-sm-12">
+                          <input type="text" name="propID" id="propID" class="form-control" value="<%= accomodation._id %>" required hidden>
+                      </div>
+                  </div>
+
                     <div class="row form-group input_group">
                         <div class="col-sm-12">
                             <input type="text" name="addressL1" id="addressL1" class="form-control" value="<%= accomodation.properties.addressL1 %>" required>
@@ -125,7 +131,7 @@
 
                     <div class="row form-group input_group">
                         <div class="col-sm-12">
-                            <input type="text-area" id="description" class="form-control" placeholder="Property description" value="<%= accomodation.properties.description %>" rows="5" required>
+                            <textarea name="description" id="description" class="form-control" placeholder="Property description" value="" rows="5" required><%= accomodation.properties.description %></textarea>
                         </div>
                     </div>
 
@@ -135,9 +141,61 @@
                         </div>
                     </div>
 
+
+                    <p>Key Features</p>
                     <div class="row form-group input_group">
-                        <div class="col-sm-12">
-                            <input type="checkbox" name="internetIncluded" id="internetIncluded" value="<%= accomodation.properties.internetIncluded %>"> Internet Included<br>
+
+                        <div class="col-sm-3">
+                          <% if(accomodation.properties.internetIncluded == true){ %>
+                            <input type="checkbox" name="internetIncluded" id="internetIncluded" checked> Internet Included<br>
+                            <% } else { %>
+                            <input type="checkbox" name="internetIncluded" id="internetIncluded" > Internet Included<br>
+                            <% } %>
+                        </div>
+                        <div class="col-sm-3">
+                            <% if(accomodation.properties.tvLicenseIncluded == true){ %>
+                              <input type="checkbox" name="tvLicenseIncluded" id="tvLicenseIncluded" checked> TV License Included<br>
+                              <% } else { %>
+                              <input type="checkbox" name="tvLicenseIncluded" id="tvLicenseIncluded" > TV License Included<br>
+                              <% } %>
+                        </div>
+                        <div class="col-sm-3">
+                            <% if(accomodation.properties.cleanerIncluded == true){ %>
+                              <input type="checkbox" name="cleanerIncluded" id="cleanerIncluded" checked> Cleaner Included<br>
+                              <% } else { %>
+                              <input type="checkbox" name="cleanerIncluded" id="cleanerIncluded" > Cleaner Included<br>
+                              <% } %>
+                        </div>
+                        <div class="col-sm-3">
+                            <% if(accomodation.properties.loungeIncluded == true){ %>
+                              <input type="checkbox" name="loungeIncluded" id="loungeIncluded" checked> Lounge Included<br>
+                              <% } else { %>
+                              <input type="checkbox" name="loungeIncluded" id="loungeIncluded" > Lounge Included<br>
+                              <% } %>
+                        </div>
+                    </div>
+
+                    <div class="row form-group input_group">
+                        <div class="col-sm-3">
+                            <% if(accomodation.properties.parkingIncluded == true){ %>
+                              <input type="checkbox" name="parkingIncluded" id="parkingIncluded" checked> Parking Included<br>
+                              <% } else { %>
+                              <input type="checkbox" name="parkingIncluded" id="parkingIncluded" > Parking Included<br>
+                              <% } %>
+                        </div>
+                        <div class="col-sm-3">
+                            <% if(accomodation.properties.secureLocksIncluded == true){ %>
+                              <input type="checkbox" name="secureLocksIncluded" id="secureLocksIncluded" checked> Secure Locks Included<br>
+                              <% } else { %>
+                              <input type="checkbox" name="secureLocksIncluded" id="secureLocksIncluded" > Secure Locks Included<br>
+                              <% } %>
+                        </div>
+                        <div class="col-sm-3">
+                            <% if(accomodation.properties.secureLocksIncluded == true){ %>
+                              <input type="checkbox" name="bathIncluded" id="bathIncluded" checked> BathIncluded<br>
+                              <% } else { %>
+                              <input type="checkbox" name="bathIncluded" id="bathIncluded" > Bath Included<br>
+                              <% } %>
                         </div>
                     </div>
 
@@ -155,7 +213,7 @@
                 <div class="col-sm-6"> 
 
                 <div id="map" class="col-sm-12"> </div>
-                <p>The id of the property is <%= accomodation._id %></p>
+                <p id="propID">The id of the property is <%= accomodation._id %></p>
                 </div>
                 <script>
                   var map;

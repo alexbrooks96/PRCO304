@@ -138,7 +138,7 @@ router.post('/addToFavourites', function (req, res){
 });
 
 router.post('/editproperty', function (req, res, next){
-	var propID = req.query.propID;
+	var propID = req.body.propID;
 
 	var newAddressL1 = String(req.body.addressL1);
 	var newAddressL2= String(req.body.addressL2);
@@ -146,8 +146,15 @@ router.post('/editproperty', function (req, res, next){
 	var newCounty = String(req.body.county);
 	var newPostcode = String(req.body.postcode);
 	var newDescription = String(req.body.description);
-	//var newNumRooms = Number(req.body.numRooms);
-	//var newInternetIncluded = Boolean(req.body.internetIncluded);
+	var newNumRooms = Number(req.body.numRooms);
+	var newInternetIncluded = Boolean(req.body.internetIncluded);
+	var newTvLicenseIncluded = Boolean(req.body.tvLicenseIncluded);
+	var newCleanerIncluded = Boolean(req.body.cleanerIncluded);
+	var newLoungeIncluded = Boolean(req.body.loungeIncluded);
+	var newParkingIncluded = Boolean(req.body.parkingIncluded);
+	var newSecureLocksIncluded = Boolean(req.body.secureLocksIncluded);
+	var newBathIncluded = Boolean(req.body.bathIncluded);
+
 
 	//Changes the values for each of the below to what is in the edit input boxes. Updates and saves user details.
 	AccomodationModel.updateOne(
@@ -155,7 +162,11 @@ router.post('/editproperty', function (req, res, next){
 			"_id": propID 
 		}, 
 		{
-			$set: {'addressL1': newAddressL1, 'addressL2': newAddressL2, 'city': newCity, 'county': newCity, 'postcode': newPostcode, 'description': newDescription}
+			$set: {'properties.addressL1': newAddressL1, 'properties.addressL2': newAddressL2, 'properties.city': newCity, 'properties.county': newCity, 'properties.postcode': newPostcode,
+			'properties.description': newDescription, 'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded, 'properties.tvLicenseIncluded': newTvLicenseIncluded,
+			'properties.cleanerIncluded': newCleanerIncluded, 'properties.loungeIncluded': newLoungeIncluded, 'properties.parkingIncluded': newLoungeIncluded, 'properties.secureLocksIncluded': newSecureLocksIncluded,
+			'properties.bathIncluded': newBathIncluded
+		}
 			//'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded
 		},
 
