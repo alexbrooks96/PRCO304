@@ -52,7 +52,7 @@ router.get('/profile', isLoggedIn, function (req, res){
 	});
 });
 
-router.get('/userlist', isLoggedIn, function(req, res){
+router.get('/userlist', isLoggedIn, isUserAuthorised, function(req, res){
 	UserModel.find({}, function(err, data){
 		res.render('userlist', {users: data, user: req.user});
 		console.log(data);
@@ -114,4 +114,11 @@ function isLoggedIn(req, res, next){
 	}
 
 	res.redirect('/login');
+};
+
+function isUserAuthorised(req, res, next){
+	if (req.user.role == "admin") {
+		return next();
+	}
+	res.redirect('/profile');
 };

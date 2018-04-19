@@ -93,7 +93,7 @@ router.get('/viewproperty', isLoggedIn, function(req,res){
 		});
 });
 
-router.get('/editproperty', isLoggedIn, function(req,res){
+router.get('/editproperty', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var propID = req.query.propID;
 	var addressL1 = req.query.addressL1;
@@ -169,7 +169,7 @@ router.post('/editproperty', function (req, res, next){
 	});
 });
 
-router.get('/profiletest', isLoggedIn, function(req, res){
+router.get('/profiletest', isLoggedIn, isUserAuthorised, function(req, res){
 	AccomodationModel.find({}, function(err, data){
 		res.render('profiletest', {accomodation: data, user: req.user});
 		//console.log(data);

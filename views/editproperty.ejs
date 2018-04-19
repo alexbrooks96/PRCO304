@@ -23,11 +23,42 @@
 </head>
 
 <body>
-    <div class="jumbotron text-center">
-        <h1>Student Housing Finder - Edit Property</h1>
-        <h3>Welcome <%= user.firstName %></h3><%= user.email %> <a href="/logout"> logout</a> 
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+      <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText, navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <% if(user.role== "admin"){ %>
+          <li class="nav-item">
+            <a class="nav-link" href="/addProperty">Add Property</a>
+          </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link" href="/propertylist">View Properties</a>
+          </li>
+          <% if(user.role== "admin"){ %>
+          <li class="nav-item">
+            <a class="nav-link" href="/userlist">View Users</a>
+          </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link" href="/favourites">My Favourites</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+            <% if(user.role== "admin"){ %>
+                <b style="color:#aa3f3f">ADMIN</b>
+            <% } %>
 
+          <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+        </span>
+      </div>
+    </nav>
     <div class="container text-center">
         <div class="row">
 <!--             <div class="col-sm-6">
