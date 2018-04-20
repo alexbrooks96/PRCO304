@@ -195,6 +195,34 @@ router.get('/favourites', isLoggedIn, function(req, res){
 	});
 });
 
+router.get('/deleteproperty', isLoggedIn, isUserAuthorised, function(req,res){
+
+	var propID = req.query.propID;
+	var addressL1 = req.query.addressL1;
+
+	console.log(propID);
+		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
+		res.render('deleteproperty', {accomodation: data, user: req.user});
+		});
+});
+
+router.post('/deleteproperty', function (req, res, next){
+	var propID = req.body.propID;
+	AccomodationModel.deleteOne(
+		{
+			"_id": propID 
+		}, 
+			function(err, result){
+			console.log('property deleted');
+			res.redirect('/propertylist');
+
+			if(err) {
+				console.error(err);
+			}
+		});
+
+	});
+
 
 
 
