@@ -71,6 +71,7 @@
     <table id="userlist" class="table table-striped table-bordered " style="width:100%; height:47em">
             <thead>
                 <tr>
+                    <th>User _id </th>
                     <th>First Name</th>
                     <th>Surname</th>
                     <th>Email</th>
@@ -82,12 +83,13 @@
             <tbody>
             <% users.forEach(function (user) { %>
                 <tr>
+                <td><%= user._id %> </td>
                 <td><%= user.firstName %></td>
                 <td><%= user.secondName %> </td>
                 <td><%= user.email %></td>
                 <td><%= user.studentNumber %></td>
                 <td><%= user.role %></td>
-                <td><a href=""><i class="far fa-edit" title="Edit User"></i></a> <a href=""><i class="far fa-trash-alt" title="Delete User"></i></a><a href=""> <i class="fas fa-lock" title="Lock User"></i></a></td>
+                <td><a href=""><i class="fa fa-search" title="View User"></i></a><a href="/edituser?userID=<%= user._id %>"><i class="far fa-edit" title="Edit User"></i></a> <a href=""><i class="far fa-trash-alt" title="Delete User"></i></a><a href=""> <i class="fas fa-lock" title="Lock User"></i></a></td>
                 </tr>
                 <% }) %>
             </tbody>

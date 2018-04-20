@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
 <link rel="stylesheet" href="/css/custom.css">
-
 </head>
 
 <body>
@@ -51,23 +50,52 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h3>Please confirm you want to delete property: <%= accomodation.properties.addressL1 %> which ID is <%= accomodation._id %> </h3>
-          <form action="/deleteproperty" method="post">
+          <h3>Editing user: <%= selecteduser.firstName %> </h3>
+          <form action="/edituser" method="post">
+          <div class="row form-group input_group">
+            <div class="col-sm-12">
+              <input type="text" name="userID" id="userID" class="form-control" placeholder="First Name" value="<%= selecteduser._id %>" required hidden> 
+            </div>
+          </div>
+
             <div class="row form-group input_group">
-                <div class="col-sm-12">
-                    <input type="text" name="propID" id="propID" class="form-control" value="<%= accomodation._id %>" required >
-                </div>
+              <div class="col-sm-12">
+                <input type="text" name="newFirstName" id="newFirstName" class="form-control" placeholder="First Name" value="<%= selecteduser.firstName %>" required> 
+              </div>
             </div>
 
             <div class="row form-group input_group">
-                <div class="col-sm-12">
-                    <input type="text" name="addressL1" id="addressL1" class="form-control" value="<%= accomodation.properties.addressL1 %>" required s>
-                </div>
+              <div class="col-sm-12">
+                <input type="text" name="newSecondName" id="newSecondName" class="form-control" placeholder="Second Name" value="<%= selecteduser.secondName %>" required> 
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="newEmail" id="newEmail" class="form-control" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address" value="<%= selecteduser.email %>" required>
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="password" name="newPassword" id="newPassword" class="form-control" placeholder="Password" pattern=".{6,}" title="Please ensure that your password is six or more characters" value="<%= selecteduser.password %>" required>
+              </div>
+            </div>
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="newStudentNumber" id="newStudentNumber" class="form-control" placeholder="student Number" value="<%= selecteduser.studentNumber %>" required>
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="newRole" id="newRole" class="form-control" placeholder="Student Number" value="<%= selecteduser.role %>" required>
+              </div>
             </div>
 
             <div class="row form-group">
                 <div class="col-sm-12">
-                    <input type="submit" name="deleteproperty" id="deleteproperty" class="form-control btn btn-primary" value="Confirm Delete">
+                    <input type="submit" name="edituser" id="edituser" class="form-control btn btn-primary" value="Edit user">
                 </div>
             </div>
 

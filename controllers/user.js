@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var UserModel = require('../models/user');
 var User = require('../models/user');
@@ -75,6 +76,52 @@ router.get('/newuser', function (req, res){
 router.get('/exisitingUser', function (req, res){
 	res.redirect('/login');
 });
+
+router.get('/edituser', isLoggedIn, isUserAuthorised, function(req,res){
+
+	var userID = req.query.userID;
+
+
+	console.log(userID);
+		UserModel.findOne({_id: userID}, function(err, data){
+		res.render('edituser', {selecteduser: data, user: req.user});
+		});
+});
+
+router.post('/edituser', function (req, res, next){
+	var userID = req.body.userID;
+
+	var newFirstName = String(req.body.newFirstName);
+	var newSecondName = String(req.body.newSecondName);
+	var newEmail = String(req.body.newEmail);
+	var newPassword = String(req.body.newPassword);
+	var newStudentNumber = String(req.body.newStudentNumber);
+	var newRole = String(req.body.newRole);
+
+	//Changes the values for each of the below to what is in the edit input boxes. Updates and saves user details.
+	UserModel.updateOne(
+		{
+			"_id": userID 
+		}, 
+		{
+			$set: {'firstName': newFirstName, 'secondName': newSecondName, 'email': newEmail, 'password': newPassword, 
+			'studentNumber': newStudentNumber, 'role': newRole
+			
+		}
+			//'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded
+		},
+
+		function(err, result){
+		console.log('user updated');
+		res.redirect('/userlist');
+
+		if(err) {
+			console.error(err);
+		}
+	});
+});
+
+
 
 // router.post('/addToFavourites', function (req, res, next){
 // 	var propertyID = req.body.propertyID;
