@@ -42,15 +42,19 @@ router.post('/addProperty', function(req, res){
 	newProperty.properties.secureLocksIncluded = req.body.secureLocksIncluded;
 
 	newProperty.geometry.coordinates = [req.body.longitude, req.body.latitude];
-	newProperty.save(function(err){
+	newProperty.save(function(err, result){
+		console.log('balance updated');
+				res.redirect('/profile');
+
 		if (err) {
 			res.send(err);
 		}			
-		res.json(req.body);
+		//res.json(req.body);
 
 
 
 	});
+
 	// res.redirect('/profile');
 });
 
