@@ -51,6 +51,9 @@
 	      <li class="nav-item">
 	        <a class="nav-link" href="/propertylist">View Properties</a>
 	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="/myaccount?userID=<%= user._id %>">My Details</a>
+	      </li>
 	      <% if(user.role== "admin"){ %>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/userlist">View Users</a>
@@ -93,7 +96,13 @@
 					    map = new google.maps.Map(document.getElementById('map'), {
 					      zoom: 14,
 					      center: new google.maps.LatLng(50.374657,-4.142385),
-					      mapTypeId: 'roadmap'
+					      mapTypeId: 'roadmap',
+					      mapTypeControl: true,
+					       mapTypeControlOptions: {
+					         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+					         mapTypeIds: ['roadmap', 'terrain']
+					       }
+
 						  });
 					    addMarkers(map);
 						};

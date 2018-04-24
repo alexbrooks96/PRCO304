@@ -121,6 +121,49 @@ router.post('/edituser', function (req, res, next){
 	});
 });
 
+router.get('/myaccount', isLoggedIn, function(req,res){
+
+	var userID = req.query.userID;
+
+
+	console.log(userID);
+		UserModel.findOne({_id: userID}, function(err, data){
+		res.render('myaccount', {selecteduser: data, user: req.user});
+		});
+});
+
+router.post('/myaccount', function (req, res, next){
+	var userID = req.body.userID;
+
+	var newFirstName = String(req.body.newFirstName);
+	var newSecondName = String(req.body.newSecondName);
+	var newEmail = String(req.body.newEmail);
+	var newPassword = String(req.body.newPassword);
+	var newStudentNumber = String(req.body.newStudentNumber);
+
+	//Changes the values for each of the below to what is in the edit input boxes. Updates and saves user details.
+	UserModel.updateOne(
+		{
+			"_id": userID 
+		}, 
+		{
+			$set: {'firstName': newFirstName, 'secondName': newSecondName, 'email': newEmail, 'password': newPassword, 
+			'studentNumber': newStudentNumber
+			
+		}
+			//'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded
+		},
+
+		function(err, result){
+		console.log('my account updated');
+		res.redirect('/profile');
+
+		if(err) {
+			console.error(err);
+		}
+	});
+});
+
 router.get('/deleteuser', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var userID = req.query.userID;
