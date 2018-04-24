@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UniRooms - Login</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+<link rel="stylesheet" href="/css/custom.css">
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+    <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText, navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <% if(user.role== "admin"){ %>
+              <li class="nav-item">
+                <a class="nav-link" href="/addProperty">Add Property</a>
+              </li>
+              <% } %>
+              <li class="nav-item ">
+                <a class="nav-link" href="/propertylist">View Properties</a>
+              </li>
+              <% if(user.role== "admin"){ %>
+              <li class="nav-item">
+                <a class="nav-link" href="/userlist">View Users</a>
+              </li>
+              <% } %>
+              <li class="nav-item">
+                <a class="nav-link" href="/favourites">My Favourites</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+                <% if(user.role== "admin"){ %>
+                    <b style="color:#aa3f3f">ADMIN</b>
+                <% } %>
+
+              <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+            </span>
+          </div>
+  </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Please confirm you want to delete user: <%= selectedUser.firstName %> which ID is <%= selectedUser._id %> </h3>
+          <form action="/deleteuser" method="post">
+            <div class="row form-group input_group">
+                <div class="col-sm-12">
+                    <input type="text" name="userID" id="userID" class="form-control" value="<%= selectedUser._id %>" required>
+                </div>
+            </div>
+
+            <div class="row form-group input_group">
+                <div class="col-sm-12">
+                    <input type="text" name="firstName" id="firstName" class="form-control" value="<%= selectedUser.firstName %>" required>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <input type="submit" name="deleteuser" id="deleteuser" class="form-control btn btn-primary" value="Confirm Delete">
+                </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+<script src="https://cdjns.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdjns.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

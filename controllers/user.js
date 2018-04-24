@@ -121,6 +121,33 @@ router.post('/edituser', function (req, res, next){
 	});
 });
 
+router.get('/deleteuser', isLoggedIn, isUserAuthorised, function(req,res){
+
+	var userID = req.query.userID;
+
+	console.log(userID);
+		UserModel.findOne({_id: userID}, function(err, data){
+		res.render('deleteuser', {selectedUser: data, user: req.user});
+		});
+});
+
+router.post('/deleteuser', function (req, res, next){
+	var userID = req.body.userID;
+	UserModel.deleteOne(
+		{
+			"_id": userID 
+		}, 
+			function(err, result){
+			console.log('user deleted');
+			res.redirect('/userlist');
+
+			if(err) {
+				console.error(err);
+			}
+		});
+
+	});
+
 
 
 // router.post('/addToFavourites', function (req, res, next){

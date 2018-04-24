@@ -44,15 +44,12 @@ router.post('/addProperty', function(req, res){
 	newProperty.geometry.coordinates = [req.body.longitude, req.body.latitude];
 	newProperty.save(function(err, result){
 		console.log('balance updated');
-				res.redirect('/profile');
+		res.redirect('/profile');
 
 		if (err) {
 			res.send(err);
 		}			
 		//res.json(req.body);
-
-
-
 	});
 
 	// res.redirect('/profile');
