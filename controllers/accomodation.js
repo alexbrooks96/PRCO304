@@ -192,7 +192,7 @@ router.get('/favourites', isLoggedIn, function(req, res){
 	var userID = req.user.id;
 
 	User.findOne({_id: userID}, function(err, data){
-		res.render('favourites', {users: data, user: req.user});
+		res.render('favourites', { user: req.user});
 	});
 });
 
@@ -205,6 +205,50 @@ router.get('/deleteproperty', isLoggedIn, isUserAuthorised, function(req,res){
 		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
 		res.render('deleteproperty', {accomodation: data, user: req.user});
 		});
+});
+
+router.get('/removefavourite', isLoggedIn, function(req,res){
+
+	var propID = req.query.propID;
+	var addressL1 = req.query.addressL1;
+
+	console.log(propID);
+		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
+		res.render('removefavourite', {accomodation: data, user: req.user});
+		});
+});
+
+router.post('/removefavourite', function (req, res){
+	var favouriteID = String(req.body.favouriteID);
+
+	var userID = String(req.body.userID);
+
+	console.log(req);
+
+	// var favouritesEntry = {
+	// 	propertyID : propertyIDEntry,
+	// 	propertyAddrL1 : propertyAddrL1Entry,
+	// }
+
+	User.update(
+		{
+			"_id": userID
+		},
+
+		{
+			$pull: {favourites: {"_id": favouriteID}}
+		},
+	
+		function(err, result){
+		console.log('removed from favourites');
+		//console.log(favouritesEntry);
+
+		res.redirect('/favourites');
+
+		if(err) {
+			console.error(err);
+		}
+	});
 });
 
 router.post('/deleteproperty', function (req, res, next){
