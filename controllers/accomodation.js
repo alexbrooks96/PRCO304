@@ -6,6 +6,7 @@ var router = express.Router();
 
 var AccomodationModel = require('../models/accomodation');
 var User = require('../models/user');
+var Ticket = require('../models/ticket');
 
 
 
@@ -268,7 +269,48 @@ router.post('/deleteproperty', function (req, res, next){
 
 	});
 
+router.get('/mysupporttickets', isLoggedIn, function(req, res){
+	var userID = req.user.id;
 
+	//Ticket.findOne({studentID: userID},
+
+	Ticket.find({studentID: userID}, function(err, data){
+		res.render('mysupporttickets', { ticket:data, user: req.user});
+	});
+});
+
+router.get('/newticket', isLoggedIn, function(req, res){
+
+	// Ticket.find({}, function(err, data){
+
+	// 	var ticketdata = data;
+	// }
+
+	AccomodationModel.find({}, function(err,data){
+		res.render('newticket', {accomodation: data, user: req.user});
+		})
+	});
+
+router.post('/newticket', function(req, res){
+	var newTicket = new Ticket(req.body);
+	newTicket.title = req.body.title;
+	newTicket.propertyAddrL1 = req.body.propertyAddrL1;
+	newTicket.category = req.body.category;
+	newTicket.description = req.body.description;
+	newTicket.studentID = req.body.studentID;
+	
+	newTicket.save(function(err, result){
+		console.log('new ticket created');
+		res.redirect('/profile');
+
+		if (err) {
+			res.send(err);
+		}			
+		//res.json(req.body);
+	});
+
+	// res.redirect('/profile');
+});
 
 
 module.exports = router;
