@@ -294,7 +294,7 @@ router.get('/newticket', isLoggedIn, function(req, res){
 router.post('/newticket', function(req, res){
 	var newTicket = new Ticket(req.body);
 	newTicket.title = req.body.title;
-	newTicket.propertyAddrL1 = req.body.propertyAddrL1;
+	newTicket.propertyAddrL1 = req.body.listADDR1;
 	newTicket.category = req.body.category;
 	newTicket.description = req.body.description;
 	newTicket.studentID = req.body.studentID;
