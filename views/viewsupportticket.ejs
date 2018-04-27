@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UniRooms - New Support ticket</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+<link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+    <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText, navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <% if(user.role== "admin"){ %>
+              <li class="nav-item">
+                <a class="nav-link" href="/addProperty">Add Property</a>
+              </li>
+              <% } %>
+              <li class="nav-item ">
+                <a class="nav-link" href="/propertylist">View Properties</a>
+              </li>
+              <% if(user.role== "admin"){ %>
+              <li class="nav-item">
+                <a class="nav-link" href="/userlist">View Users</a>
+              </li>
+              <% } %>
+              <li class="nav-item">
+                <a class="nav-link" href="/favourites">My Favourites</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+                <% if(user.role== "admin"){ %>
+                    <b style="color:#aa3f3f">ADMIN</b>
+                <% } %>
+
+              <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+            </span>
+          </div>
+  </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Viewing Support ticket: <%= supportticket._id %> submitted by <%= supportticket.studentID %> for property <%= supportticket.propertyAddrL1 %></h3>
+          <form action="/updateticket" method="post">
+          <div class="row form-group input_group">
+            <div class="col-sm-12">
+              <input type="text" name="studentID" id="studentID" class="form-control" placeholder="Student ID" value="<%= supportticket.studentID %>" required disabled> 
+            </div>
+          </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="title" id="title" class="form-control" placeholder="Support Ticket Title" value="<%= supportticket.title %>" required disabled> 
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="title" id="title" class="form-control" placeholder="Support Ticket Title" value="<%= supportticket.propertyAddrL1 %>" required disabled> 
+
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="category" id="category" class="form-control" placeholder="Ticket Category" value="<%= supportticket.category %>" required disabled> 
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="description" id="description" class="form-control" placeholder="Ticket description"  value="<%= supportticket.description %>" required disabled> 
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="adminresponse" id="adminresponse" class="form-control" placeholder="Admin Response"  value="<%= supportticket.adminresponse %>" required > 
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="text" name="solution" id="solution" class="form-control" placeholder="Action taken"  value="<%= supportticket.solution %>" required > 
+              </div>
+            </div>
+
+            <div class="row form-group input_group">
+              <div class="col-sm-12">
+                <input type="checkbox" name="isResolved" id="isResolved" value="supportticket.isResolved"> Close Ticket (When resolved)<br>
+              </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <input type="submit" name="updateticket" id="updateticket" class="form-control btn btn-primary" value="Update ticket">
+                </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+<script src="https://cdjns.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdjns.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

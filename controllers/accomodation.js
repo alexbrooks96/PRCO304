@@ -312,6 +312,25 @@ router.post('/newticket', function(req, res){
 	// res.redirect('/profile');
 });
 
+router.get('/allsupporttickets', isLoggedIn, isUserAuthorised, function(req, res){
+	var userID = req.user.id;
+
+	//Ticket.findOne({studentID: userID},
+
+	Ticket.find({}, function(err, data){
+		res.render('allsupporttickets', { ticket:data, user: req.user});
+	});
+});
+
+router.get('/viewsupportticket', isLoggedIn, function(req,res){
+
+	var ticketID = req.query.ticketID;
+	console.log(ticketID);
+		Ticket.findOne({_id: ticketID}, function(err, data){
+		res.render('viewsupportticket', {supportticket: data, user: req.user});
+		});
+});
+
 
 module.exports = router;
 
