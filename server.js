@@ -44,7 +44,10 @@ app.use(passport.session());
 app.use(user);
 app.use(accomodation);
 
-
+app.use(function(req, res, next) {
+    res.status(404);
+    res.render('404error', { user: req.user});
+});
 
 app.listen(80, function(){
 	console.log('listening on port 80');
