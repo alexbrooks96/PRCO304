@@ -51,7 +51,20 @@
       <div class="row">
         <div class="col-sm-12">
           <h3>Viewing Support ticket: <%= supportticket._id %> submitted by <%= supportticket.studentID %> for property <%= supportticket.propertyAddrL1 %></h3>
-          <form action="/updateticket" method="post">
+          <p><b>Support ticket ID:</b> <%= supportticket._id %></p>
+          <p><b>Student ID:</b> <%= supportticket.studentID %></p>
+          <p><b>Support ticket title:</b> <%= supportticket.title %></p>
+          <p><b>Property Address Line 1:</b><%= supportticket.propertyAddrL1 %></p>
+          <p><b>Ticket category:</b> <%= supportticket.category %></p>
+          <p><b>Ticket Description:</b> <%= supportticket.description %></p>
+          <p><b>Response from maintanence team:</b> <%= supportticket.adminResponse %></p>
+          <p><b>Solution/action taken:</b> <%= supportticket.solution %></p>
+          <p><b>Ticket resoloved:</b> <%= supportticket.isResolved %></p>
+
+
+
+
+          <!-- <form action="/updateticket" method="post">
             <div class="row form-group input_group">
               <div class="col-sm-12">
                 <input type="text" name="ticketID" id="ticketID" class="form-control" placeholder="Student ID" value="<%= supportticket._id %>" required hidden> 
@@ -110,7 +123,7 @@
 
             <div class="row form-group">
                 <div class="col-sm-12">
-                    <input type="submit" name="updateticket" id="updateticket" class="form-control btn btn-primary" value="Update ticket">
+                    <input type="submit" name="updateticket" id="updateticket" class="form-control btn btn-primary" value="Update ticket" hidden>
                 </div>
             </div>
 
@@ -130,7 +143,7 @@
                 </div>
             </div>
 
-          </form>
+          </form> -->
         </div>
       </div>
     </div>

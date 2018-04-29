@@ -331,6 +331,62 @@ router.get('/viewsupportticket', isLoggedIn, function(req,res){
 		});
 });
 
+router.get('/viewmysupportticket', isLoggedIn, function(req,res){
+
+	var ticketID = req.query.ticketID;
+	console.log(ticketID);
+		Ticket.findOne({_id: ticketID}, function(err, data){
+		res.render('viewmysupportticket', {supportticket: data, user: req.user});
+		});
+});
+
+router.post('/deleteticket', function (req, res, next){
+	var ticketID = req.body.ticketID;
+	Ticket.deleteOne(
+		{
+			"_id": ticketID 
+		}, 
+			function(err, result){
+			console.log('ticket deleted');
+			res.redirect('/allsupporttickets');
+
+			if(err) {
+				console.error(err);
+			}
+		});
+
+	});
+
+router.post('/updateticket', function (req, res, next){
+	var ticketID = req.body.ticketID;
+
+	var newAdminResponse = String(req.body.adminresponse);
+	var newSolution= String(req.body.solution);
+	var newIsResolved = Boolean(req.body.isResolved);
+
+
+
+	//Changes the values for each of the below to what is in the edit input boxes. Updates and saves user details.
+	Ticket.updateOne(
+		{
+			"_id": ticketID 
+		}, 
+		{
+			$set: {'adminResponse': newAdminResponse, 'solution': newSolution, 'isResolved': newIsResolved
+		}
+			//'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded
+		},
+
+		function(err, result){
+		console.log('ticket updated');
+		res.redirect('/allsupporttickets');
+
+		if(err) {
+			console.error(err);
+		}
+	});
+});
+
 
 module.exports = router;
 
