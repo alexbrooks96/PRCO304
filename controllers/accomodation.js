@@ -7,6 +7,8 @@ var router = express.Router();
 var AccomodationModel = require('../models/accomodation');
 var User = require('../models/user');
 var Ticket = require('../models/ticket');
+var POI = require('../models/poi');
+
 
 
 
@@ -90,8 +92,11 @@ router.get('/viewproperty', isLoggedIn, function(req,res){
 	var addressL1 = req.query.addressL1;
 
 	console.log(propID);
+		
 		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
-		res.render('viewproperty', {accomodation: data, user: req.user});
+			POI.find({}, function(err, poiData){
+		res.render('viewproperty', {accomodation: data, poi: poiData, user: req.user});
+	});
 		});
 });
 
@@ -322,7 +327,7 @@ router.get('/allsupporttickets', isLoggedIn, isUserAuthorised, function(req, res
 	});
 });
 
-router.get('/viewsupportticket', isLoggedIn, function(req,res){
+router.get('/viewsupportticket', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var ticketID = req.query.ticketID;
 	console.log(ticketID);
@@ -385,6 +390,47 @@ router.post('/updateticket', function (req, res, next){
 			console.error(err);
 		}
 	});
+});
+
+router.get('/newpoi', isLoggedIn, isUserAuthorised, function(req, res){
+
+	// Ticket.find({}, function(err, data){
+
+	// 	var ticketdata = data;
+	// }
+
+	POI.find({}, function(err,data){
+		res.render('newpoi', {poi: data, user: req.user});
+		})
+	});
+
+router.post('/newpoi', function(req, res){
+	var newPOI = new POI(req.body);
+	newPOI.properties.poiTitle = req.body.poiTitle;
+	newPOI.properties.poiType = req.body.poiType;
+	newPOI.properties.poiAddressL1 = req.body.poiAddressL1;
+	newPOI.properties.poiAddressL2 = req.body.poiAddressL2;
+	newPOI.properties.poiCity = req.body.poiCity;
+	newPOI.properties.poiCounty = req.body.poiCounty;
+	newPOI.properties.poiPostcode = req.body.poiPostcode;
+	newPOI.properties.poiDescription = req.body.poiDescription;
+
+	newPOI.geometry.coordinates = [req.body.longitude, req.body.latitude];
+
+
+
+	
+	newPOI.save(function(err, result){
+		console.log('new POI created');
+		res.redirect('/profile');
+
+		if (err) {
+			res.send(err);
+		}			
+		//res.json(req.body);
+	});
+
+	// res.redirect('/profile');
 });
 
 

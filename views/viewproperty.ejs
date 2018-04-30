@@ -180,13 +180,66 @@
                           mapTypeId: 'roadmap'
                         });
 
+
                         var marker = new google.maps.Marker({
                           position: houseLoc,
                           map: map,
                           animation: google.maps.Animation.DROP,
                         });
 
+                        addMarkers(map);
 
+                              function addMarkers(map){
+
+                                var pois = <%-JSON.stringify(poi)%>
+
+
+                                for (i = 0; i < pois.length; i++) { 
+                                    //console.log(accomodations[i]);
+                                    var houseLoc = {lat: pois[i].geometry.coordinates[0], lng: pois[i].geometry.coordinates[1]};
+                                    var point = new google.maps.LatLng(houseLoc.lng, houseLoc.lat);
+
+                                    console.log(houseLoc);
+
+                                    var content = '<div id="content">' + "<b> Title: </b>" + pois[i].properties.poiTitle + '</br>'+'</div>';
+
+                                    var image = 'https://orig00.deviantart.net/6fdf/f/2014/117/9/2/ainsley_harriot_head_by_lacorocks-d7gacxq.png';
+
+                                    var icons = {
+                                      Education: {
+                                        icon: "http://maps.google.com/mapfiles/kml/pal3/icon30.png",
+
+                                      },
+                                      Shopping: {
+                                        icon: "http://maps.google.com/mapfiles/ms/micons/convienancestore.png"
+                                      },
+                                      Interest:{
+                                        icon:"http://maps.google.com/mapfiles/ms/micons/info.png"
+                                      },
+
+
+                                    };
+
+
+                                    var marker = new google.maps.Marker({
+                                      position: point,
+                                      map: map,
+                                      animation: google.maps.Animation.DROP,
+                                      icon:icons[pois[i].properties.poiType].icon
+                                    });
+
+
+                                    var infowindow = new google.maps.InfoWindow();
+                                    var prev_infowindow = false; 
+                                    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
+                                            return function() {
+                                               infowindow.setContent(content);
+                                               infowindow.open(map,marker);
+                                            };
+                                        })(marker,content,infowindow));
+                                        infowindow.close(); 
+                                }
+                              };
                //  Create a <script> tag and set the USGS URL as the source.
                //  var script = document.createElement('script');
                //  map.data.loadGeoJson(href = "https://api.myjson.com/bins/uug2d");

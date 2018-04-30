@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <title>UniRooms -fffdg Add new Property</title>
+
+    <style>
+          /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+          #map {
+            height: 57em;
+            width:150em;
+          }
+          /* Optional: Makes the sample page fill the window. */
+          html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+        </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
+      <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText, navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <% if(user.role== "admin"){ %>
+          <li class="nav-item active">
+            <a class="nav-link" href="/addProperty">Add Property</a>
+          </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link" href="/propertylist">View Properties</a>
+          </li>
+          <% if(user.role== "admin"){ %>
+          <li class="nav-item">
+            <a class="nav-link" href="/userlist">View Users</a>
+          </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link" href="/favourites">My Favourites</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+            <% if(user.role== "admin"){ %>
+                <b style="color:#aa3f3f">ADMIN</b>
+            <% } %>
+
+          <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+        </span>
+      </div>
+    </nav>
+
+    <div class="container-fluid text-center">
+        <div class="row">
+
+                <!--<h3 style="font-size: 3vw;" data-toggle="tooltip" title="This is your current balance."><a href="/increase">Student Accommodation Finder</a></h3> -->
+                <div id="map" class="col-sm-6"> </div>
+                    <script type="text/javascript">
+                      var map;
+
+                      // var contentString = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+
+                      function initMap() {
+                        //console.log(user);
+                        map = new google.maps.Map(document.getElementById('map'), {
+                          zoom: 14,
+                          center: new google.maps.LatLng(50.374657,-4.142385),
+                          mapTypeId: 'roadmap'
+                          });
+                        addMarkers(map);
+                        };
+
+
+                        function addMarkers(map){
+
+
+
+                            google.maps.event.addListener(map, 'click', function( event ){
+                                var userLat = event.latLng.lat();
+                                var userLong = event.latLng.lng();
+
+                                document.getElementById('latitude').value = userLat;
+                                document.getElementById('longitude').value = userLong;
+                            });
+
+
+                        };
+
+
+
+
+                        
+
+
+
+
+
+                        // map.data.addListener('click', function(event) {
+                        //     var myHTML = event.feature.getProperty('_id') + "</br>" + event.feature.getProperty('addressL1') + "</br>" + event.feature.getProperty('addressL2') + "</br>" + event.feature.getProperty('city') + "</br>" + event.feature.getProperty('county') + "</br>" + event.feature.getProperty('postcode') + "</br>" + event.feature.getProperty('createdAt') + "</br> " + event.feature.getProperty('$oid') + "<a href='/viewproperty'>More info...</a>";
+
+
+                            // document.getElementById('info-box').innerHTML = myHTML;
+                        
+                        //map.data.addGeoJson('C:\Program Files\MongoDB\Server\3.6\bin\accomodations2.js');
+
+
+
+                    </script>
+                <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKt1JynmQnjE6niCiisa0zXlmWXcGRg-w&callback=initMap">
+                </script>
+
+                <div class="col-sm-6">
+                    <h3>Add new POI to system</h3>
+                    <form action="/newpoi" method="post">
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiTitle" id="poiTitle" class="form-control" placeholder="POI Title" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiType" id="poiType" class="form-control" placeholder="POI Type" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiAddressL1" id="poiAddressL1" class="form-control" placeholder="POI Address Line 1" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiAddressL2" id="poiAddressL2" class="form-control" placeholder="POI Address Line 2">
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiCity" id="poiCity" class="form-control" placeholder="POI City" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiCounty" id="poiCounty" class="form-control" placeholder="POI County" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <input type="text" name="poiPostcode" id="poiPostcode" class="form-control" placeholder="POI Postcode" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-6">
+                                <input type="text" name="latitude" id="latitude" class="form-control" placeholder="latitude" >
+                            </div>
+        
+                            <div class="col-sm-6">
+                                <input type="text" name="longitude" id="longitude" class="form-control" placeholder="longitude" >
+                            </div>
+                        </div>
+
+                        <div class="row form-group input_group">
+                            <div class="col-sm-12">
+                                <textarea name="poiDescription" id="poiDescription" class="form-control" placeholder="POI description" rows="5" required> </textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <input type="submit" name="newpoi" id="newpoi" class="form-control btn btn-primary" value="Add POI">
+                            </div>
+                        </div>
+                    </form>
+<p id="latitude"></p>
+<p id="longitude"></p>
+
+                </div>
+
+
+        </div>
+    </div>
+
+
+
+
+    </div>
+</body>
+<script>
+
+</script>
+</html>
