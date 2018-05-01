@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UniRooms - New Support ticket</title>
+  <title>UniRooms - Login</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
 <link rel="stylesheet" href="/css/custom.css">
+
 </head>
 
 <body>
@@ -50,55 +51,23 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h3>New Support ticket: <%= user.firstName %> </h3>
-          <form action="/newticket" method="post">
-          <div class="row form-group input_group">
-            <div class="col-sm-12">
-              <input type="text" name="studentID" id="studentID" class="form-control" placeholder="Student ID" value="<%= user._id %>" required > 
-            </div>
-          </div>
-
+          <h3>Please confirm you want to delete poi: <%= pois.properties.poiTitle %> which ID is <%= pois._id %> </h3>
+          <form action="/deletepoi" method="post">
             <div class="row form-group input_group">
-              <div class="col-sm-12">
-                <input type="text" name="title" id="title" class="form-control" placeholder="Support Ticket Title"  required> 
-              </div>
+                <div class="col-sm-12">
+                    <input type="text" name="poiID" id="poiID" class="form-control" value="<%= pois._id %>" required >
+                </div>
             </div>
 
             <div class="row form-group input_group">
-              <div class="col-sm-12">
-                <select class="form-control" name="listADDR1">
-                <% accomodation.forEach(function (accomodations) { %>
-                <!--<input type="text" name="propertyAddrL1" id="propertyAddrL1" class="form-control" placeholder="Address Line 1"  required> -->
-                    <option id="propertyAddrL1" class="form-control" name="propertyAddrL1" value="<%= accomodations.properties.addressL1 %>"><%= accomodations.properties.addressL1 %></option>
-
-                <% }) %>
-              </select>
-              </div>
-            </div>
-
-            <div class="row form-group input_group">
-              <div class="col-sm-12">
-
-
-                <select class="form-control" name="category">
-                    <option value="Maintenance">Maintenance</option>
-                    <option value="Pest Control">Pest Control</option>
-                    <option value="General Enquiry">General Enquiry</option>
-                    <option value="Appliances">Appliances</option>
-                  </select>
-
-              </div>
-            </div>
-
-            <div class="row form-group input_group">
-              <div class="col-sm-12">
-                <input type="text" name="description" id="description" class="form-control" placeholder="Ticket description"  required> 
-              </div>
+                <div class="col-sm-12">
+                    <input type="text" name="poiTitle" id="poiTitle" class="form-control" value="<%= pois.properties.poiTitle %>" required s>
+                </div>
             </div>
 
             <div class="row form-group">
                 <div class="col-sm-12">
-                    <input type="submit" name="newticket" id="newticket" class="form-control btn btn-primary" value="Submit ticket">
+                    <input type="submit" name="deletepoi" id="deletepoi" class="form-control btn btn-primary" value="Confirm Delete">
                 </div>
             </div>
 

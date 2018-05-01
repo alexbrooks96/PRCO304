@@ -113,10 +113,8 @@
 
 					    	var accomodations = <%-JSON.stringify(accomodation)%>
 
-
-
-
 					    	for (i = 0; i < accomodations.length; i++) { 
+
 					    	    //console.log(accomodations[i]);
 					    	    var houseLoc = {lat: accomodations[i].geometry.coordinates[0], lng: accomodations[i].geometry.coordinates[1]};
 					    	    var point = new google.maps.LatLng(houseLoc.lng, houseLoc.lat);
@@ -140,7 +138,7 @@
 					    	               infowindow.open(map,marker);
 					    	            };
 					    	        })(marker,content,infowindow));
-					    	        infowindow.close(); 
+					    	        infowindow.close(); 						    	    
 					    	}
 				    	};
 

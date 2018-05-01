@@ -21,6 +21,7 @@ var accomodationSchema = mongoose.Schema({
 	parkingIncluded: {type: Boolean, default: false},
 	bathIncluded: {type: Boolean, default: false},
 	secureLocksIncluded: {type: Boolean, default: false},
+	isVisible: {type:Boolean, default:true},
 
 
 

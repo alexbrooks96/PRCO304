@@ -105,6 +105,7 @@
                                 var infowindow = new google.maps.InfoWindow();
 
                                 google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+
                                         return function() {
                                            infowindow.setContent(content);
                                            infowindow.open(map,marker);
@@ -122,6 +123,25 @@
 
                                 document.getElementById('latitude').value = userLat;
                                 document.getElementById('longitude').value = userLong;
+                            });
+
+                            
+
+                            var marker;
+
+                            function placeMarker(location) {
+                              if ( marker ) {
+                                marker.setPosition(location);
+                              } else {
+                                marker = new google.maps.Marker({
+                                  position: location,
+                                  map: map,
+                                });
+                              }
+                            }
+
+                            google.maps.event.addListener(map, 'click', function(event) {
+                              placeMarker(event.latLng);
                             });
 
 

@@ -93,6 +93,24 @@
                                 document.getElementById('longitude').value = userLong;
                             });
 
+                            
+                            var marker;
+
+                            function placeMarker(location) {
+                              if ( marker ) {
+                                marker.setPosition(location);
+                              } else {
+                                marker = new google.maps.Marker({
+                                  position: location,
+                                  map: map,
+                                });
+                              }
+                            }
+
+                            google.maps.event.addListener(map, 'click', function(event) {
+                              placeMarker(event.latLng);
+                            });
+
 
                         };
 
@@ -132,7 +150,11 @@
 
                         <div class="row form-group input_group">
                             <div class="col-sm-12">
-                                <input type="text" name="poiType" id="poiType" class="form-control" placeholder="POI Type" required>
+                                <select class="form-control" name="poiType">
+                                    <option value="Education">Education</option>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Interest">Point of Interest</option>
+                                  </select>
                             </div>
                         </div>
 

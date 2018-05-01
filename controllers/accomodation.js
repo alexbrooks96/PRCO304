@@ -161,6 +161,7 @@ router.post('/editproperty', function (req, res, next){
 	var newParkingIncluded = Boolean(req.body.parkingIncluded);
 	var newSecureLocksIncluded = Boolean(req.body.secureLocksIncluded);
 	var newBathIncluded = Boolean(req.body.bathIncluded);
+	var newIsVisible = Boolean(req.body.isVisible);
 
 
 	//Changes the values for each of the below to what is in the edit input boxes. Updates and saves user details.
@@ -172,7 +173,7 @@ router.post('/editproperty', function (req, res, next){
 			$set: {'properties.addressL1': newAddressL1, 'properties.addressL2': newAddressL2, 'properties.city': newCity, 'properties.county': newCity, 'properties.postcode': newPostcode,
 			'properties.description': newDescription, 'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded, 'properties.tvLicenseIncluded': newTvLicenseIncluded,
 			'properties.cleanerIncluded': newCleanerIncluded, 'properties.loungeIncluded': newLoungeIncluded, 'properties.parkingIncluded': newLoungeIncluded, 'properties.secureLocksIncluded': newSecureLocksIncluded,
-			'properties.bathIncluded': newBathIncluded
+			'properties.bathIncluded': newBathIncluded, 'properties.isVisible': newIsVisible
 		}
 			//'properties.numRooms': newNumRooms, 'properties.internetIncluded': newInternetIncluded
 		},
@@ -422,7 +423,7 @@ router.post('/newpoi', function(req, res){
 	
 	newPOI.save(function(err, result){
 		console.log('new POI created');
-		res.redirect('/profile');
+		res.redirect('/viewallpoi');
 
 		if (err) {
 			res.send(err);
@@ -432,6 +433,44 @@ router.post('/newpoi', function(req, res){
 
 	// res.redirect('/profile');
 });
+
+router.get('/viewallpoi', isLoggedIn, isUserAuthorised, function(req, res){
+	var userID = req.user.id;
+
+	//Ticket.findOne({studentID: userID},
+
+	POI.find({}, function(err, data){
+		res.render('viewallpoi', { pois:data, user: req.user});
+	});
+});
+
+router.get('/deletepoi', isLoggedIn, isUserAuthorised, function(req,res){
+
+	var poiID = req.query.poiID;
+
+
+	console.log(poiID);
+		POI.findOne({_id: poiID}, function(err, data){
+		res.render('deletepoi', {pois: data, user: req.user});
+		});
+});
+
+router.post('/deletepoi', function (req, res, next){
+	var poiID = req.body.poiID;
+	POI.deleteOne(
+		{
+			"_id": poiID 
+		}, 
+			function(err, result){
+			console.log('POI deleted');
+			res.redirect('/viewallpoi');
+
+			if(err) {
+				console.error(err);
+			}
+		});
+
+	});
 
 
 module.exports = router;
