@@ -113,7 +113,8 @@
                 <td> <%=ticket.propertyAddrL1 %></td>
                 <td><%= ticket.title %> </td>
                 <td><%= ticket.category %></td>
-                <td>                  <% if(ticket.isResolved == true){ %>
+                <td>
+                  <% if(ticket.isResolved == true){ %>
                   <p style="color:green">Resolved</p>
                   <% } else { %>
                   <p style="color:red">Unresolved</p>
