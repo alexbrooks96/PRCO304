@@ -42,7 +42,7 @@ passport.use('local.signup', new LocalStrategy({
 		newUser.email = req.body.email;
 		newUser.password = newUser.encryptPassword(req.body.password);
 		newUser.studentNumber = req.body.studentNumber;
-		newUser.role = "admin";
+		newUser.role = "standard";
 
 		newUser.save(function(err){
 			if (err) {
