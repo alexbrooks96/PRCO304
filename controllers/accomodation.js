@@ -95,9 +95,13 @@ router.get('/viewproperty', isLoggedIn, function(req,res){
 		
 		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
 			POI.find({}, function(err, poiData){
+				if (data && poiData) {
 		res.render('viewproperty', {accomodation: data, poi: poiData, user: req.user});
+	} else {
+		res.render('404error', {user: req.user});
+	}
 	});
-		});
+	});
 });
 
 router.get('/editproperty', isLoggedIn, isUserAuthorised, function(req,res){
@@ -107,9 +111,13 @@ router.get('/editproperty', isLoggedIn, isUserAuthorised, function(req,res){
 
 	console.log(propID);
 		AccomodationModel.findOne({_id: propID, addressL1: addressL1}, function(err, data){
+			if (data) {
 		res.render('editproperty', {accomodation: data, user: req.user});
+	} else {
+		res.render('404error', {user: req.user});
+	}
 		});
-});
+	});
 
 router.post('/addToFavourites', function (req, res){
 	var propertyIDEntry = String(req.body.propertyID);
@@ -333,8 +341,12 @@ router.get('/viewsupportticket', isLoggedIn, isUserAuthorised, function(req,res)
 	var ticketID = req.query.ticketID;
 	console.log(ticketID);
 		Ticket.findOne({_id: ticketID}, function(err, data){
+			if (data) {
 		res.render('viewsupportticket', {supportticket: data, user: req.user});
-		});
+	} else {
+		res.render('404error', {user:req.user});
+		};
+	})
 });
 
 router.get('/viewmysupportticket', isLoggedIn, function(req,res){
@@ -342,8 +354,12 @@ router.get('/viewmysupportticket', isLoggedIn, function(req,res){
 	var ticketID = req.query.ticketID;
 	console.log(ticketID);
 		Ticket.findOne({_id: ticketID}, function(err, data){
+			if (data) {
 		res.render('viewmysupportticket', {supportticket: data, user: req.user});
-		});
+	} else {
+		res.render('404error', {user: req.user});
+		};
+	})
 });
 
 router.post('/deleteticket', function (req, res, next){

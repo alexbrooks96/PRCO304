@@ -128,9 +128,13 @@ router.get('/myaccount', isLoggedIn, function(req,res){
 
 	console.log(userID);
 		UserModel.findOne({_id: userID}, function(err, data){
+			if (data) {
 		res.render('myaccount', {selecteduser: data, user: req.user});
+	} else {
+		res.render('404error', {user: req.user});
+	}
 		});
-});
+	});
 
 router.post('/myaccount', function (req, res, next){
 	var userID = req.body.userID;
