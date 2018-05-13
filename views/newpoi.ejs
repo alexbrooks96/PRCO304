@@ -4,7 +4,15 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <title>UniRooms -fffdg Add new Property</title>
+     <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> 
+
+    <title>UniRooms - Add new POI</title>
 
     <style>
           /* Always set the map height explicitly to define the size of the div
@@ -23,42 +31,58 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1daa76;">
-      <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText, navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item ">
-            <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <% if(user.role== "admin"){ %>
-          <li class="nav-item active">
-            <a class="nav-link" href="/addProperty">Add Property</a>
-          </li>
-          <% } %>
-          <li class="nav-item">
-            <a class="nav-link" href="/propertylist">View Properties</a>
-          </li>
-          <% if(user.role== "admin"){ %>
-          <li class="nav-item">
-            <a class="nav-link" href="/userlist">View Users</a>
-          </li>
-          <% } %>
-          <li class="nav-item">
-            <a class="nav-link" href="/favourites">My Favourites</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-            <% if(user.role== "admin"){ %>
-                <b style="color:#aa3f3f">ADMIN</b>
-            <% } %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #1daa76 !important;">
+        <a class="navbar-brand" href="#"><img src="/images/unirooms.jpg" height=30 width=100></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                      <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/propertylist">View Properties</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/favourites">My Favourites</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Support tickets
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="/newticket">Add new ticket</a>
+                              <a class="dropdown-item" href="/mysupporttickets">View my tickets</a>
+                          </li>
 
-          <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
-        </span>
-      </div>
-    </nav>
+                    <% if(user.role== "admin"){ %>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Admin options
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="/addProperty">Add Property</a>
+                              <a class="dropdown-item" href="/userlist">View Users</a>
+                              <a class="dropdown-item" href="/allsupporttickets">View all support tickets</a>
+                              
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="/newpoi">Add new POI</a>
+                              <a class="dropdown-item" href="/viewallpoi">View all POI</a>
+                            </div>
+                          </li>
+                          <% } %>
+
+          </ul>
+          <span class="navbar-text">
+              <% if(user.role== "admin"){ %>
+                  <b style="color:#aa3f3f">ADMIN</b>
+              <% } %>
+
+            <b>Welcome <%= user.firstName %></b>, <%= user.email %> <a href="/logout">logout </a>
+          </span>
+        </div>
+      </nav>
 
     <div class="container-fluid text-center">
         <div class="row">
