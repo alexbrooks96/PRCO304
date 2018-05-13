@@ -113,7 +113,11 @@
                 <td> <%=ticket.propertyAddrL1 %></td>
                 <td><%= ticket.title %> </td>
                 <td><%= ticket.category %></td>
-                <td><%= ticket.isResolved %></td>
+                <td>                  <% if(ticket.isResolved == true){ %>
+                  <p style="color:green">Resolved</p>
+                  <% } else { %>
+                  <p style="color:red">Unresolved</p>
+                  <% } %></td>
 
                 <td><a href="/viewmysupportticket?ticketID=<%= ticket._id %>"><i class="fa fa-search" title="View ticket"></i></a>
 
