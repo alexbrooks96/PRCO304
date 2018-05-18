@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 
-
+//Loading through the schemas
 var AccomodationModel = require('../models/accomodation');
 var User = require('../models/user');
 var Ticket = require('../models/ticket');
@@ -12,7 +12,7 @@ var POI = require('../models/poi');
 
 
 
-
+//gets all properties ready for use on map
 module.exports = function(app){
 	router.get('/property', function(req, res){
 
@@ -27,6 +27,7 @@ module.exports = function(app){
 	});
 };
 
+//post method to add new property to the system
 router.post('/addProperty', function(req, res){
 	var newProperty = new AccomodationModel(req.body);
 	newProperty.properties.addressL1 = req.body.addressL1;
@@ -46,7 +47,7 @@ router.post('/addProperty', function(req, res){
 
 	newProperty.geometry.coordinates = [req.body.longitude, req.body.latitude];
 	newProperty.save(function(err, result){
-		console.log('balance updated');
+		console.log('property added');
 		res.redirect('/profile');
 
 		if (err) {
@@ -59,7 +60,7 @@ router.post('/addProperty', function(req, res){
 });
 
 
-
+//renders add property page - passes through accommodation model
 router.get('/addproperty', isLoggedIn, isUserAuthorised, function(req, res){
 	// res.render('addproperty', {accomodation: req.accomodation, user: req.user});
 
@@ -70,6 +71,7 @@ router.get('/addproperty', isLoggedIn, isUserAuthorised, function(req, res){
 
 });
 
+//Renders property list with a list of all properties in collection
 router.get('/propertylist', isLoggedIn, function(req, res){
 	AccomodationModel.find({}, function(err, data){
 		res.render('propertylist', {accomodation: data, user: req.user});
@@ -77,15 +79,8 @@ router.get('/propertylist', isLoggedIn, function(req, res){
 	});
 });
 
-// router.get('/viewproperty', isLoggedIn, function(req,res){
 
-// 	var propID = req.body.propID;
-// 	AccomodationModel.findOne({id: propID}, function(err, data){
-// 	console.log(propID);
-// 		res.render('viewproperty', {accomodation: data, user: req.user});
-// 		});
-// });
-
+//Renders view individual property. Uses the _id of the property to query db. POI data passed through.
 router.get('/viewproperty', isLoggedIn, function(req,res){
 
 	var propID = req.query.propID;
@@ -104,6 +99,7 @@ router.get('/viewproperty', isLoggedIn, function(req,res){
 	});
 });
 
+//Renders edit property page - Uses _id of property to populate form from db query
 router.get('/editproperty', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var propID = req.query.propID;
@@ -119,6 +115,7 @@ router.get('/editproperty', isLoggedIn, isUserAuthorised, function(req,res){
 		});
 	});
 
+//Adds a property to users favourite, stored as an array in user collection
 router.post('/addToFavourites', function (req, res){
 	var propertyIDEntry = String(req.body.propertyID);
 	var propertyAddrL1Entry = String(req.body.propertyAddrL1);
@@ -152,6 +149,8 @@ router.post('/addToFavourites', function (req, res){
 	});
 });
 
+
+//Post for edit property, overwrites any changes made.
 router.post('/editproperty', function (req, res, next){
 	var propID = req.body.propID;
 
@@ -196,6 +195,7 @@ router.post('/editproperty', function (req, res, next){
 	});
 });
 
+//test profile page render
 router.get('/profiletest', isLoggedIn, isUserAuthorised, function(req, res){
 	AccomodationModel.find({}, function(err, data){
 		res.render('profiletest', {accomodation: data, user: req.user});
@@ -203,6 +203,7 @@ router.get('/profiletest', isLoggedIn, isUserAuthorised, function(req, res){
 	});
 });
 
+//renders favourite page
 router.get('/favourites', isLoggedIn, function(req, res){
 	var userID = req.user.id;
 
@@ -211,6 +212,7 @@ router.get('/favourites', isLoggedIn, function(req, res){
 	});
 });
 
+//renders delete property confirmation page, selected property carried through
 router.get('/deleteproperty', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var propID = req.query.propID;
@@ -222,6 +224,7 @@ router.get('/deleteproperty', isLoggedIn, isUserAuthorised, function(req,res){
 		});
 });
 
+//Removes selected property from favourite list
 router.get('/removefavourite', isLoggedIn, function(req,res){
 
 	var propID = req.query.propID;
@@ -233,6 +236,7 @@ router.get('/removefavourite', isLoggedIn, function(req,res){
 		});
 });
 
+//post to remove favourite from array
 router.post('/removefavourite', function (req, res){
 	var favouriteID = String(req.body.favouriteID);
 
@@ -266,6 +270,7 @@ router.post('/removefavourite', function (req, res){
 	});
 });
 
+//Post method to delete property from the accomodation collection
 router.post('/deleteproperty', function (req, res, next){
 	var propID = req.body.propID;
 	AccomodationModel.deleteOne(
@@ -283,6 +288,7 @@ router.post('/deleteproperty', function (req, res, next){
 
 	});
 
+//render users support ticket based on ID, brings through support tickets for that user _id
 router.get('/mysupporttickets', isLoggedIn, function(req, res){
 	var userID = req.user.id;
 
@@ -293,6 +299,7 @@ router.get('/mysupporttickets', isLoggedIn, function(req, res){
 	});
 });
 
+//renders new ticket form/page
 router.get('/newticket', isLoggedIn, function(req, res){
 
 	// Ticket.find({}, function(err, data){
@@ -305,6 +312,7 @@ router.get('/newticket', isLoggedIn, function(req, res){
 		})
 	});
 
+//adds new ticket to collection
 router.post('/newticket', function(req, res){
 	var newTicket = new Ticket(req.body);
 	newTicket.title = req.body.title;
@@ -326,6 +334,7 @@ router.post('/newticket', function(req, res){
 	// res.redirect('/profile');
 });
 
+//gets all support tickets 
 router.get('/allsupporttickets', isLoggedIn, isUserAuthorised, function(req, res){
 	var userID = req.user.id;
 
@@ -336,6 +345,7 @@ router.get('/allsupporttickets', isLoggedIn, isUserAuthorised, function(req, res
 	});
 });
 
+//views an individual support ticket, admin level
 router.get('/viewsupportticket', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var ticketID = req.query.ticketID;
@@ -349,6 +359,7 @@ router.get('/viewsupportticket', isLoggedIn, isUserAuthorised, function(req,res)
 	})
 });
 
+//views a users personal ticket
 router.get('/viewmysupportticket', isLoggedIn, function(req,res){
 
 	var ticketID = req.query.ticketID;
@@ -362,6 +373,7 @@ router.get('/viewmysupportticket', isLoggedIn, function(req,res){
 	})
 });
 
+//admin post method to delete a ticket
 router.post('/deleteticket', function (req, res, next){
 	var ticketID = req.body.ticketID;
 	Ticket.deleteOne(
@@ -379,6 +391,7 @@ router.post('/deleteticket', function (req, res, next){
 
 	});
 
+//admin post for an update ticket, resolves ticket boolean
 router.post('/updateticket', function (req, res, next){
 	var ticketID = req.body.ticketID;
 
@@ -409,6 +422,7 @@ router.post('/updateticket', function (req, res, next){
 	});
 });
 
+//render view for new POI
 router.get('/newpoi', isLoggedIn, isUserAuthorised, function(req, res){
 
 	// Ticket.find({}, function(err, data){
@@ -421,6 +435,7 @@ router.get('/newpoi', isLoggedIn, isUserAuthorised, function(req, res){
 		})
 	});
 
+//Post method for adding a new POI
 router.post('/newpoi', function(req, res){
 	var newPOI = new POI(req.body);
 	newPOI.properties.poiTitle = req.body.poiTitle;
@@ -450,6 +465,7 @@ router.post('/newpoi', function(req, res){
 	// res.redirect('/profile');
 });
 
+//admin control to view all POIs
 router.get('/viewallpoi', isLoggedIn, isUserAuthorised, function(req, res){
 	var userID = req.user.id;
 
@@ -460,6 +476,8 @@ router.get('/viewallpoi', isLoggedIn, isUserAuthorised, function(req, res){
 	});
 });
 
+
+//renders view for delete a POI from the system
 router.get('/deletepoi', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var poiID = req.query.poiID;
@@ -471,6 +489,7 @@ router.get('/deletepoi', isLoggedIn, isUserAuthorised, function(req,res){
 		});
 });
 
+//delete a POI from the system
 router.post('/deletepoi', function (req, res, next){
 	var poiID = req.body.poiID;
 	POI.deleteOne(
@@ -491,6 +510,7 @@ router.post('/deletepoi', function (req, res, next){
 
 module.exports = router;
 
+//Authentication tests
 function isLoggedIn(req, res, next){
 	if (req.isAuthenticated()) {
 		return next();

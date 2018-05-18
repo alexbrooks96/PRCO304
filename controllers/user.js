@@ -53,6 +53,7 @@ router.get('/profile', isLoggedIn, function (req, res){
 	});
 });
 
+//Renders a list of all users in the db
 router.get('/userlist', isLoggedIn, isUserAuthorised, function(req, res){
 	UserModel.find({}, function(err, data){
 		res.render('userlist', {users: data, user: req.user});
@@ -77,6 +78,7 @@ router.get('/exisitingUser', function (req, res){
 	res.redirect('/login');
 });
 
+//Renders an edit user page for the selected user
 router.get('/edituser', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var userID = req.query.userID;
@@ -88,6 +90,7 @@ router.get('/edituser', isLoggedIn, isUserAuthorised, function(req,res){
 		});
 });
 
+//Post method for edit user
 router.post('/edituser', function (req, res, next){
 	var userID = req.body.userID;
 
@@ -121,6 +124,7 @@ router.post('/edituser', function (req, res, next){
 	});
 });
 
+//renders view for my account page
 router.get('/myaccount', isLoggedIn, function(req,res){
 
 	var userID = req.query.userID;
@@ -136,6 +140,7 @@ router.get('/myaccount', isLoggedIn, function(req,res){
 		});
 	});
 
+//saves changes and updates user account change
 router.post('/myaccount', function (req, res, next){
 	var userID = req.body.userID;
 
@@ -168,6 +173,7 @@ router.post('/myaccount', function (req, res, next){
 	});
 });
 
+//renders delete user page for selected user
 router.get('/deleteuser', isLoggedIn, isUserAuthorised, function(req,res){
 
 	var userID = req.query.userID;
@@ -178,6 +184,7 @@ router.get('/deleteuser', isLoggedIn, isUserAuthorised, function(req,res){
 		});
 });
 
+//post method to delete a user
 router.post('/deleteuser', function (req, res, next){
 	var userID = req.body.userID;
 	UserModel.deleteOne(
@@ -197,38 +204,12 @@ router.post('/deleteuser', function (req, res, next){
 
 
 
-// router.post('/addToFavourites', function (req, res, next){
-// 	var propertyID = req.body.propertyID;
-// 	var propertyAddrL1 = req.body.propertyAddrL1;
-
-// 	var favourites = {
-// 		propertyID : propertyID,
-// 		propertyAddrL1 : propertyAddrL1,
-// 	}
-
-// 	UserModel.updateOne(
-// 		{
-// 			"_id": _id 
-// 		}, 
-// 		{
-
-// 			$push: {'favourites': favourites,},
-
-// 		},
-// 		function(err, result){
-// 		console.log('Added to favourites');
-// 		res.redirect('/profile');
-
-// 		if(err) {
-// 			console.error(err);
-// 		}
-// 	});
-// });
 
 
 module.exports = router;
 
 //Function to see if user is logged in using the isAuthenticated method, if they aren't they get redirected to login page.
+//Function to see if a user has the required role to access a page.
 function isLoggedIn(req, res, next){
 	if (req.isAuthenticated()) {
 		return next();

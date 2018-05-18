@@ -23,15 +23,11 @@ var accomodationSchema = mongoose.Schema({
 	secureLocksIncluded: {type: Boolean, default: false},
 	isVisible: {type:Boolean, default:true},
 
-
-
 },
 	geometry: {
 		type: {type: String, default:'Point'},
 		coordinates: [Number],
 	},
-	//location: {type: [Number], required:true},//[Longitude, Latitude]
-
 });
 
 accomodationSchema.index({geometry: '2dsphere'});
