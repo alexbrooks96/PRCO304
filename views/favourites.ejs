@@ -91,8 +91,9 @@
               </nav>
 
 
-            <input type="text" id="userID" class="form-control" name="userID" form="removefav" value="<%= user._id %>" hidden required />
+
     <div class="container-fluid text-center">
+<input type="text" id="userID" class="form-control" name="userID" form="removefav" value="<%= user._id %>" hidden required />
     <table id="favouriteslist" class="table table-striped table-bordered " style="width:100%;">
             <thead>
                 <tr>
@@ -113,7 +114,7 @@
 
 
                   <form action="/removefavourite" id="removefav" method="post">
-                    
+                          
 
                         <div class="row form-group input_group">
                           <div class="col-sm-12">
